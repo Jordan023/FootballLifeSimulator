@@ -14,7 +14,7 @@ public class EventManager : MonoBehaviour
     public bool experienceBar = false;
 
     public GameObject panel;
-    public PlayerStats playerStats;
+    public PlayerManager playerManager;
 
     private void Update()
     {
@@ -30,7 +30,7 @@ public class EventManager : MonoBehaviour
         else
             panel.SetActive(false);
 
-        experienceInfo.text = eventName + " experience: " + playerStats.getExp(eventName) + "/100";
+        experienceInfo.text = eventName + " experience: " + playerManager.getExp(eventName) + "/100";
 
     }
 
@@ -48,7 +48,7 @@ public class EventManager : MonoBehaviour
 
     public void addExperience()
     {
-        if (playerStats.energy != 0)
+        if (playerManager.getEnergy() != 0)
         {
             //Give  experience bar
             experienceBar = true;
@@ -57,10 +57,10 @@ public class EventManager : MonoBehaviour
             });
 
             //Give experience
-            playerStats.giveExperience(eventName);
+            playerManager.giveExperience(eventName);
 
             // -1 energy
-            playerStats.energy--;
+            playerManager.setEnergy(playerManager.getEnergy() - 1);
         }
     }
 

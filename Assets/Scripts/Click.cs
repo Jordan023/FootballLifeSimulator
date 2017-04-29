@@ -9,7 +9,7 @@ public class Click : MonoBehaviour
     public Text moneyDisplay;
     public Text energyDisplay;
     public Text weekDisplay;
-    public PlayerStats playerStats;
+    public PlayerManager playerManager;
 
     private void Update()
     {
@@ -18,6 +18,6 @@ public class Click : MonoBehaviour
 
     public void clickButton()
     {
-        playerStats.goToTheNextWeek();
+        playerManager.goToTheNextWeek();
     }
 }

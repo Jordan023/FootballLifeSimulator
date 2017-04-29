@@ -6,27 +6,28 @@ using System.Linq;
 
 public class ScoreManager : MonoBehaviour {
     
-    // The map we're building is going to look like :
-    //
-    // LIST OF USERS > A User > LIST OF SCORES for that user
-    //
-
     Dictionary<string, Dictionary<string, int>> playerScores;
+    public PlayerManager playerManager;
+    public LeagueManager leagueManager;
 
     int changeCounter = 0;
 
     void Start()
     {
-        setScore("quill18", "kills", 90);
-        setScore("quill18", "deaths", 12);
-        setScore("quill18", "assists", 345);
-
-        setScore("bob", "kills", 918);
-        setScore("bob", "deaths", 12);
-
-        setScore("bob2", "kills", 435);
-        setScore("bob3", "kills", 1009);
-        setScore("bob23", "kills", 0);
+        for (int i = 0; i < leagueManager.clubs.Length; i++)
+        {
+            if (leagueManager.clubs[i].LeagueID == 1)
+            {
+                setScore(leagueManager.clubs[i].TeamName, "played", leagueManager.getGamesPlayed(leagueManager.clubs[i].TeamID));
+                setScore(leagueManager.clubs[i].TeamName, "won", leagueManager.getGamesWon(leagueManager.clubs[i].TeamID));
+                setScore(leagueManager.clubs[i].TeamName, "draw", leagueManager.getGamesDraw(leagueManager.clubs[i].TeamID));
+                setScore(leagueManager.clubs[i].TeamName, "lost", leagueManager.getGamesLost(leagueManager.clubs[i].TeamID));
+                setScore(leagueManager.clubs[i].TeamName, "goalsHome", leagueManager.getGoalsScored(leagueManager.clubs[i].TeamID));
+                setScore(leagueManager.clubs[i].TeamName, "goalsAway", leagueManager.getGoalsAgainst(leagueManager.clubs[i].TeamID));
+                setScore(leagueManager.clubs[i].TeamName, "goalsDifference", leagueManager.getGoalDifference(leagueManager.clubs[i].TeamID));
+                setScore(leagueManager.clubs[i].TeamName, "points", leagueManager.getPoints(leagueManager.clubs[i].TeamID));
+            }     
+        }
     }
 
     void Init()
@@ -37,50 +38,51 @@ public class ScoreManager : MonoBehaviour {
         playerScores = new Dictionary<string, Dictionary<string, int>>();
     }
 
-    public int getScore(string username, string scoreType)
+    public int getScore(string team, string scoreType)
     {
         Init();
 
-        if(playerScores.ContainsKey(username) == false)
+        if(playerScores.ContainsKey(team) == false)
         {
             //We have no score record at all for this username
             return 0;
         }
 
-        if (playerScores[username].ContainsKey(scoreType) == false)
+        if (playerScores[team].ContainsKey(scoreType) == false)
         {
             return 0;
         }
 
-        return playerScores[username][scoreType];
+        return playerScores[team][scoreType];
     }
 
-    public void setScore(string username, string scoreType, int value)
+    public void setScore(string team, string scoreType, int value)
     {
         Init();
 
         changeCounter++;
 
-        if (playerScores.ContainsKey(username) == false)
+        if (playerScores.ContainsKey(team) == false)
         {
-            playerScores[username] = new Dictionary<string, int>();
+            playerScores[team] = new Dictionary<string, int>();
         }
 
-        playerScores[username][scoreType] = value;
+        playerScores[team][scoreType] = value;
     }
 
-    public void changeScore(string username, string scoreType, int amount)
+    public void changeScore(string team, string scoreType, int amount)
     {
         Init();
-        int currScore = getScore(username, scoreType);
-        setScore(username, scoreType, currScore + amount);
+        int currScore = getScore(team, scoreType);
+        setScore(team, scoreType, currScore + amount);
     }
 
-    public string[] getPlayerNames(string sortingScoreType)
+    public string[] getTeamNames(string sortingScoreType, string sortingScoreType2)
     {
         Init();
 
-       return playerScores.Keys.OrderByDescending(n => getScore(n, sortingScoreType)).ToArray();
+       return playerScores.Keys.OrderByDescending(n => getScore(n, sortingScoreType2)).ThenBy(name => getScore(name, sortingScoreType)).ToArray();
+        
     }
 
     public int getChangeCounter()

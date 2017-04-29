@@ -39,17 +39,17 @@ public class PlayerScoreList : MonoBehaviour {
             Destroy(c.gameObject);
         }
 
-        string[] names = scoreManager.getPlayerNames("kills");
+        string[] names = scoreManager.getTeamNames("points", "goalsDifference");
 
+        int i = 0;
         foreach (string name in names)
         {
+            i++;
             GameObject go = (GameObject)Instantiate(playerScoreEntryPrefab);
             go.transform.SetParent(this.transform, true);
-            go.transform.Find("Username").GetComponent<Text>().text = name;
-            go.transform.Find("Kills").GetComponent<Text>().text = scoreManager.getScore(name, "kills").ToString();
-            go.transform.Find("Deaths").GetComponent<Text>().text = scoreManager.getScore(name, "deaths").ToString();
-            go.transform.Find("Assists").GetComponent<Text>().text = scoreManager.getScore(name, "assists").ToString();
-
+            go.transform.Find("Position").GetComponent<Text>().text = i.ToString() ;
+            go.transform.Find("Team").GetComponent<Text>().text = name;
+            go.transform.Find("Points").GetComponent<Text>().text = scoreManager.getScore(name, "points").ToString();
         }
     }
 }

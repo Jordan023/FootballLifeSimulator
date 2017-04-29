@@ -44,8 +44,18 @@ public class LeagueManager : MonoBehaviour {
             new Club(21, "Tranmere Rovers", 1, 10, 10, 10),
             new Club(22, "Woking", 1, 10, 10, 10),
             new Club(23, "Wrexham", 1, 10, 10, 10),
-            new Club(24, "York City", 1, 10, 10, 10),
+            new Club(24, "York City", 1, 10, 10, 10)
         };
+
+    private void Start()
+    {
+        //Add results dummy
+        addResult(1, 2, 3, 0, 1);
+        addResult(3, 4, 4, 0, 1);
+        addResult(5, 6, 6, 0, 1);
+        addResult(7, 8, 5, 0, 1);
+        addResult(9, 10, 8, 0, 1);
+    }
 
     private void Update()
     {
@@ -64,6 +74,113 @@ public class LeagueManager : MonoBehaviour {
         }
 
         return null;
+    }
+
+    public int getGamesPlayed(int teamID)
+    {
+        int gamesPlayed = 0;
+
+        foreach (GameResults result in results)
+        {
+            if (result.TeamA == teamID || result.TeamB == teamID)
+                gamesPlayed++;
+        }
+
+        return gamesPlayed;
+    }
+
+    public int getGamesWon(int teamID)
+    {
+        int gamesWon = 0;
+
+        foreach (GameResults result in results)
+        {
+            if (result.TeamA == teamID)
+                if (result.HomeGoals > result.AwayGoals)
+                    gamesWon++;
+
+            if (result.TeamB == teamID)
+                if (result.AwayGoals > result.HomeGoals)
+                    gamesWon++;
+        }
+
+        return gamesWon;
+    }
+
+    public int getGamesDraw(int teamID)
+    {
+        int gamesDraw = 0;
+
+        foreach (GameResults result in results)
+        {
+            if (result.TeamA == teamID)
+                if (result.HomeGoals == result.AwayGoals)
+                    gamesDraw++;
+        }
+
+        return gamesDraw;
+    }
+
+    public int getGamesLost(int teamID)
+    {
+        int gamesLost = 0;
+
+        foreach (GameResults result in results)
+        {
+            if (result.TeamA == teamID)
+                if (result.HomeGoals < result.AwayGoals)
+                    gamesLost++;
+
+            if (result.TeamB == teamID)
+                if (result.AwayGoals < result.HomeGoals)
+                    gamesLost++;
+        }
+
+        return gamesLost;
+    }
+
+    public int getGoalsScored(int teamID)
+    {
+        int goalsScored = 0;
+
+        foreach (GameResults result in results)
+        {
+            if (result.TeamA == teamID)
+                goalsScored = goalsScored + result.HomeGoals;
+
+            if (result.TeamB == teamID)
+                goalsScored = goalsScored + result.AwayGoals;
+
+        }
+
+        return goalsScored;
+    }
+
+    public int getGoalsAgainst(int teamID)
+    {
+        int goalsAgainst = 0;
+
+        foreach (GameResults result in results)
+        {
+            if (result.TeamA == teamID)
+                goalsAgainst = goalsAgainst + result.AwayGoals;
+
+            if (result.TeamB == teamID)
+                goalsAgainst = goalsAgainst + result.HomeGoals;
+
+        }
+
+        return goalsAgainst;
+    }
+
+    public int getGoalDifference(int teamID)
+    {
+        return getGoalsScored(teamID) - getGoalsAgainst(teamID);
+    }
+
+    public int getPoints(int teamID)
+    {
+        return getGamesWon(teamID) * 3 + getGamesDraw(teamID);
     }
 
     public void addResult(int teamA, int teamB, int homeGoals, int awayGoals, int season)

@@ -3,24 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class PlayerStats : MonoBehaviour
-{
-    //Standard information like age, energy, money
-    public int teamID = 1;
-    public float money = 0.00f;
-    public int age = 6;
-    public int energy = 10;
-    public string characterName;
-    public int moneyPerClick = 1;
-    public int year = 1;
-    public int week = 1;
+public class PlayerManager : MonoBehaviour {
 
-    public string levelUpMessage;
-    public GameObject panel;
-    public Text panelText;
-    public bool levelUpBool = false;
+    Player character = new Player(1, 0, 6, 10, "Jordan Munk", 1, 1);
 
-    public Attribute[] attributes = {
+    Attribute[] attributes = {
       new Attribute("Pace", 1, 0),
       new Attribute("Agility", 1, 0),
       new Attribute("Strength", 1, 0),
@@ -62,13 +49,36 @@ public class PlayerStats : MonoBehaviour
     public Text energyDisplay;
     public Text weekDisplay;
 
+    public string levelUpMessage;
+    public GameObject panel;
+    public Text panelText;
+    public bool levelUpBool = false;
+
+
+    // Use this for initialization
+    void Start () {
+		
+	}
+
+    public void Wait(float seconds, System.Action action)
+    {
+        StartCoroutine(_wait(seconds, action));
+    }
+
+    IEnumerator _wait(float time, System.Action callback)
+    {
+        yield
+        return new WaitForSeconds(time);
+        callback();
+    }
+
     private void Update()
     {
-        generalDisplay.text = "Name: " + characterName + "\nAge: " + age + " years old" + "\nCurrent Team: " + league.getTeamName(teamID);
+        generalDisplay.text = "Name: " + character.CharacterName + "\nAge: " + character.Age + " years old" + "\nCurrent Team: " + league.getTeamName(character.TeamID);
 
-        moneyDisplay.text = "Money: $" + money.ToString("F0");
-        energyDisplay.text = "Energy: " + energy + "/10";
-        weekDisplay.text = "Year " + year + " | Week " + week;
+        moneyDisplay.text = "Money: $" + character.Money.ToString("F0");
+        energyDisplay.text = "Energy: " + character.Energy + "/10";
+        weekDisplay.text = "Year " + character.Year + " | Week " + character.Week;
 
         levels1Display.text =
          "\n Pace: " + attributes[0].AttributeLevel +
@@ -107,7 +117,6 @@ public class PlayerStats : MonoBehaviour
                 levelUpScreen(attributes[i].AttributeLevel, attributes[i].AttributeName);
         }
 
-
         panelText.text = levelUpMessage;
     }
 
@@ -130,16 +139,13 @@ public class PlayerStats : MonoBehaviour
         return 0;
     }
 
-    public void Wait(float seconds, System.Action action)
+    public int getEnergy()
     {
-        StartCoroutine(_wait(seconds, action));
+        return character.Energy;
     }
-
-    IEnumerator _wait(float time, System.Action callback)
+    public void setEnergy(int energy)
     {
-        yield
-        return new WaitForSeconds(time);
-        callback();
+        character.Energy = energy;
     }
 
     public void levelUpScreen(int level, string skill)
@@ -154,11 +160,11 @@ public class PlayerStats : MonoBehaviour
 
     public void goToTheNextWeek()
     {
-        if (week + 1 > 52)
+        if (character.Week + 1 > 52)
         {
-            year++;
-            week = 1;
-            energy = 10;
+            character.Year++;
+            character.Week = 1;
+            character.Energy = 10;
             button_1.isNameFound = false;
             button_2.isNameFound = false;
             button_3.isNameFound = false;
@@ -167,14 +173,13 @@ public class PlayerStats : MonoBehaviour
         }
         else
         {
-            week++;
-            energy = 10;
+            character.Week++;
+            character.Energy = 10;
             button_1.isNameFound = false;
             button_2.isNameFound = false;
             button_3.isNameFound = false;
             button_4.isNameFound = false;
             button_5.isNameFound = false;
         }
-
     }
 }
