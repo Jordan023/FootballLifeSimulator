@@ -46,7 +46,7 @@ public class PlayerScoreList : MonoBehaviour {
         {
             i++;
             GameObject go = (GameObject)Instantiate(playerScoreEntryPrefab);
-            go.transform.SetParent(this.transform, true);
+            go.transform.SetParent(this.transform, false);
             go.transform.Find("Position").GetComponent<Text>().text = i.ToString() ;
             go.transform.Find("Team").GetComponent<Text>().text = name;
             go.transform.Find("Points").GetComponent<Text>().text = scoreManager.getScore(name, "points").ToString();
