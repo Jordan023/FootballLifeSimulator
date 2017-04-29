@@ -70,16 +70,4 @@ public class LeagueManager : MonoBehaviour {
     {
         results.Add(new GameResults(teamA, teamB, homeGoals, awayGoals, season));
     }
-
-    public void printTable(int leagueID)
-    {
-        for (int i = 0; i < clubs.Length; i++)
-        {
-            if (clubs[i].LeagueID == leagueID)
-            {
-                //Print only people from league
-                //tableText = tableText + "\n" + i + " " + clubs[i].TeamName + " 0  0  0  0  0  0  0  0";
-            }
-        }
-    }
 }
