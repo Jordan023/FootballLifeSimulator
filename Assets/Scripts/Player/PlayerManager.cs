@@ -143,6 +143,13 @@ public class PlayerManager : MonoBehaviour {
     {
         return character.Energy;
     }
+
+
+    public int getYear()
+    {
+        return character.Year;
+    }
+
     public void setEnergy(int energy)
     {
         character.Energy = energy;

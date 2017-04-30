@@ -81,7 +81,7 @@ public class ScoreManager : MonoBehaviour {
     {
         Init();
 
-       return playerScores.Keys.OrderByDescending(n => getScore(n, sortingScoreType2)).ThenBy(name => getScore(name, sortingScoreType)).ToArray();
+       return playerScores.Keys.OrderByDescending(n => getScore(n, sortingScoreType)).ThenBy(name => getScore(name, sortingScoreType2)).ToArray();
         
     }
 

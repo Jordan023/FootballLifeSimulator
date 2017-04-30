@@ -53,6 +53,7 @@
      <Compile Include="Assets\Scripts\League System\GameResults.cs" />
      <Compile Include="Assets\Scripts\League System\League.cs" />
      <Compile Include="Assets\Scripts\League System\LeagueManager.cs" />
+     <Compile Include="Assets\Scripts\League System\Match Engine\MatchManager.cs" />
      <Compile Include="Assets\Scripts\League System\Table\PlayerScoreList.cs" />
      <Compile Include="Assets\Scripts\League System\Table\ScoreManager.cs" />
      <Compile Include="Assets\Scripts\Player\Player.cs" />
