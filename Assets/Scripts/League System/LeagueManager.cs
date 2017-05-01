@@ -44,7 +44,8 @@ public class LeagueManager : MonoBehaviour {
             new Club(21, "Tranmere Rovers", 1, 19, 20, 20),
             new Club(22, "Woking", 1, 12, 12, 12),
             new Club(23, "Wrexham", 1, 15, 15, 14),
-            new Club(24, "York City", 1, 11, 12, 11)
+      //      new Club(24, "York City", 1, 11, 12, 11),
+            new Club(24, "Chelsea", 1, 98, 97, 98)
         };
 
     private void Start()
