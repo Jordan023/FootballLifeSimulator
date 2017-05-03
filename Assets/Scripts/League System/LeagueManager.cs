@@ -21,48 +21,131 @@ public class LeagueManager : MonoBehaviour {
     public Club[] clubs =
        {
             //National League
-            new Club(1, "Aldershot Town", 1, 18, 18, 18),
-            new Club(2, "Barrow", 1, 17, 18, 18),
-            new Club(3, "Boreham Wood", 1, 17, 16, 16),
-            new Club(4, "Braintree Town", 1, 11, 11, 11),
-            new Club(5, "Bromley", 1, 17, 18, 15),
-            new Club(6, "Chester", 1, 12, 12, 11),
-            new Club(7, "Dagenham & Redbridge", 1, 19, 20, 16),
-            new Club(8, "Dover Athletic", 1, 20, 18, 14),
-            new Club(9, "Eastleigh", 1, 14, 13, 13),
-            new Club(10, "Forest Green Rovers", 1, 20, 19, 18),
-            new Club(11, "Gateshead", 1, 17, 17, 17),
-            new Club(12, "Guiseley", 1, 12, 12, 11),
-            new Club(13, "Lincoln City", 1, 20, 20, 20),
-            new Club(14, "Macclesfield Town", 1, 17, 18, 15),
-            new Club(15, "Maidstone United", 1, 15, 13, 12),
-            new Club(16, "North Ferriby United", 1, 10, 10, 10),
-            new Club(17, "Solihull Moors", 1, 13, 12, 13),
-            new Club(18, "Southport", 1, 10, 11, 10),
-            new Club(19, "Sutton United", 1, 15, 15, 15),
-            new Club(20, "Torquay United", 1, 12, 13, 14),
-            new Club(21, "Tranmere Rovers", 1, 19, 20, 20),
-            new Club(22, "Woking", 1, 12, 12, 12),
-            new Club(23, "Wrexham", 1, 15, 15, 14),
-      //      new Club(24, "York City", 1, 11, 12, 11),
-            new Club(24, "Chelsea", 1, 98, 97, 98)
+            new Club(1, "Lincoln City", 1, 20, 20, 20),
+            new Club(2, "Tranmere Rovers", 1, 19, 20, 20),
+            new Club(3, "Forest Green Rovers", 1, 20, 19, 18),
+            new Club(4, "Dagenham & Redbridge", 1, 19, 20, 16),
+            new Club(5, "Aldershot Town", 1, 18, 18, 18),
+            new Club(6, "Dover Athletic", 1, 20, 18, 14),
+            new Club(7, "Barrow", 1, 17, 18, 18),
+            new Club(8, "Gateshead", 1, 17, 17, 17),
+            new Club(9, "Macclesfield Town", 1, 17, 18, 15),
+            new Club(10, "Bromley", 1, 17, 18, 15),
+            new Club(11, "Boreham Wood", 1, 17, 16, 16),
+            new Club(12, "Sutton United", 1, 15, 15, 15),
+            new Club(13, "Wrexham", 1, 15, 15, 14),
+            new Club(14, "Maidstone United", 1, 15, 13, 12),
+            new Club(15, "Eastleigh", 1, 14, 13, 13),
+            new Club(16, "Solihull Moors", 1, 13, 12, 13),
+            new Club(17, "Torquay United", 1, 12, 13, 14),
+            new Club(18, "Woking", 1, 12, 12, 12),
+            new Club(19, "Chester", 1, 12, 12, 11),
+            new Club(20, "Guiseley", 1, 12, 12, 11),
+            new Club(21, "York City", 1, 11, 12, 11),
+            new Club(22, "Braintree Town", 1, 11, 11, 11),
+            new Club(23, "Southport", 1, 10, 11, 10),
+            new Club(24, "North Ferriby United", 1, 8, 8, 10),
+
+            //League Two
+            new Club(25, "Plymouth Argyle", 2, 40, 40, 40),
+            new Club(26, "Doncaster Rovers", 2, 0, 0, 0),
+            new Club(27, "Portsmouth", 2, 0, 0, 0),
+            new Club(28, "Luton Town", 2, 0, 0, 0),
+            new Club(29, "Exeter City", 2, 0, 0, 0),
+            new Club(30, "Carlisle United", 2, 0, 0, 0),
+            new Club(31, "Blackpool", 2, 0, 0, 0),
+            new Club(32, "Stevenage", 2, 0, 0, 0),
+            new Club(33, "Cambridge United", 2, 0, 0, 0),
+            new Club(34, "Colchester United", 2, 0, 0, 0),
+            new Club(35, "Wycombe Wanderers", 2, 0, 0, 0),
+            new Club(36, "Mansfield Town", 2, 0, 0, 0),
+            new Club(37, "Accrington Stanley", 2, 0, 0, 0),
+            new Club(38, "Grimsby Town", 2, 0, 0, 0),
+            new Club(39, "Barnet", 2, 0, 0, 0),
+            new Club(40, "Notts County", 2, 0, 0, 0),
+            new Club(41, "Crewe Alexandra", 2, 0, 0, 0),
+            new Club(42, "Morecambe", 2, 0, 0, 0),
+            new Club(43, "Yeovil Town", 2, 0, 0, 0),
+            new Club(44, "Cheltenham Town", 2, 0, 0, 0),
+            new Club(45, "Crawley Town", 2, 0, 0, 0),
+            new Club(46, "Newport County", 2, 0, 0, 0),
+            new Club(47, "Hartlepool United", 2, 0, 0, 0),
+            new Club(48, "Leyton Orient", 2, 20, 20, 20),
+
+            //League one
+            new Club(49, "Sheffield United", 3, 60, 60, 60),
+            new Club(50, "Bolton Wanderers", 3, 0, 0, 0),
+            new Club(51, "Scunthorpe United", 3, 0, 0, 0),
+            new Club(52, "Fleetwood Town", 3, 0, 0, 0),
+            new Club(53, "Bradford City", 3, 0, 0, 0),
+            new Club(54, "Millwall", 3, 0, 0, 0),
+            new Club(55, "Southend United", 3, 0, 0, 0),
+            new Club(56, "Oxford United", 3, 0, 0, 0),
+            new Club(57, "Rochdale", 3, 0, 0, 0),
+            new Club(58, "Bristol Rovers", 3, 0, 0, 0),
+            new Club(59, "Peterborough United", 3, 0, 0, 0),
+            new Club(60, "Milton Keynes Dons", 3, 0, 0, 0),
+            new Club(61, "Charlton Athletic", 3, 0, 0, 0),
+            new Club(62, "Walsall", 3, 0, 0, 0),
+            new Club(63, "AFC Wimbledon", 3, 0, 0, 0),
+            new Club(64, "Northampton Town", 3, 0, 0, 0),
+            new Club(65, "Oldham Athletic", 3, 0, 0, 0),
+            new Club(66, "Shrewsbury Town", 3, 0, 0, 0),
+            new Club(67, "Bury", 3, 0, 0, 0),
+            new Club(68, "Gillingham", 3, 0, 0, 0),
+            new Club(69, "Port Vale", 3, 0, 0, 0),
+            new Club(70, "Swindon Town", 3, 0, 0, 0),
+            new Club(71, "Coventry City", 3, 0, 0, 0),
+            new Club(72, "Chesterfield", 3, 40, 40, 40),
+
+            //Championship
+            new Club(73, "Brighton & Hove Albion", 4, 80, 80, 80),
+            new Club(74, "Newcastle United", 4, 0, 0, 0),
+            new Club(75, "Reading", 4, 0, 0, 0),
+            new Club(76, "Sheffield Wednesday", 4, 0, 0, 0),
+            new Club(77, "Huddersfield Town", 4, 0, 0, 0),
+            new Club(78, "Fulham", 4, 0, 0, 0),
+            new Club(79, "Leeds United", 4, 0, 0, 0),
+            new Club(80, "Norwich City", 4, 0, 0, 0),
+            new Club(81, "Derby County", 4, 0, 0, 0),
+            new Club(82, "Brentford", 4, 0, 0, 0),
+            new Club(83, "Preston North End", 4, 0, 0, 0),
+            new Club(84, "Aston Villa", 4, 0, 0, 0),
+            new Club(85, "Cardiff City", 4, 0, 0, 0),
+            new Club(86, "Barnsley", 4, 0, 0, 0),
+            new Club(87, "Wolverhampton Wanderers", 4, 0, 0, 0),
+            new Club(88, "Ipswich Town", 4, 0, 0, 0),
+            new Club(89, "Bristol City", 4, 0, 0, 0),
+            new Club(90, "Queens Park Rangers", 4, 0, 0, 0),
+            new Club(91, "Burton Albion", 4, 0, 0, 0),
+            new Club(92, "Birmingham City", 4, 0, 0, 0),
+            new Club(93, "Nottingham Forest", 4, 0, 0, 0),
+            new Club(94, "Blackburn Rovers", 4, 0, 0, 0),
+            new Club(95, "Wigan Athletic", 4, 0, 0, 0),
+            new Club(96, "Rotherham United", 4, 60, 60, 60),
+
+            //Premier Leauge
+            new Club(97, "Chelsea", 5, 100, 100, 100),
+            new Club(98, "Tottenham Hotspur", 5, 100, 98, 98),
+            new Club(99, "Liverpool", 5, 96, 98, 98),
+            new Club(100, "Manchester City", 5, 96, 97, 100),
+            new Club(101, "Manchester United", 5, 96, 97, 100),
+            new Club(102, "Arsenal", 5, 96, 96, 96),
+            new Club(103, "Everton", 5, 94, 93, 92),
+            new Club(104, "West Bromwich Albion", 5, 92, 92, 93),
+            new Club(105, "Southampton", 5, 91, 92, 92),
+            new Club(106, "Bournemouth", 5, 90, 91, 91),
+            new Club(107, "Leicester City", 5, 90, 90, 90),
+            new Club(108, "Stoke City", 5, 88, 89, 90),
+            new Club(109, "Watford", 5, 88, 88, 87),
+            new Club(110, "Burnley", 5, 85, 88, 86),
+            new Club(111, "West Ham United", 5, 86, 86, 86),
+            new Club(112, "Crystal Palace", 5, 85, 85, 85),
+            new Club(113, "Hull City", 5, 84, 83, 84),
+            new Club(114, "Swansea City", 5, 82, 83, 84),
+            new Club(115, "Middlesbrough", 5, 81, 82, 83),
+            new Club(116, "Sunderland", 5, 80, 80, 80)
         };
-
-    private void Start()
-    {
-        //Add results dummy
-        //addResult(1, 2, 3, 0, 1);
-        //addResult(3, 4, 4, 0, 1);
-        //addResult(5, 6, 6, 0, 1);
-        //addResult(7, 8, 5, 0, 1);
-        //addResult(9, 10, 8, 0, 1);
-    }
-
-    private void Update()
-    {
-        //tableDisplay.text = "Position | Team | P | W | D | L | F | A | GD | PTS" + tableText;
-        //printTable(1);
-    }
 
     public string getTeamName(int teamID)
     {
@@ -75,6 +158,19 @@ public class LeagueManager : MonoBehaviour {
         }
 
         return null;
+    }
+
+    public int getLeagueID(int teamID)
+    {
+        for (int i = 0; i < clubs.Length; i++)
+        {
+            if (clubs[i].TeamID == teamID)
+            {
+                return clubs[i].LeagueID;
+            }
+        }
+
+        return 0;
     }
 
     public int getGamesPlayed(int teamID)

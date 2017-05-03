@@ -19,13 +19,109 @@ Platform assembly: C:\Users\Jordan\Desktop\FootballLifeSimulator\Test_Data\Manag
 Loading C:\Users\Jordan\Desktop\FootballLifeSimulator\Test_Data\Managed\UnityEngine.PlaymodeTestsRunner.dll into Unity Child Domain
 Platform assembly: C:\Users\Jordan\Desktop\FootballLifeSimulator\Test_Data\Managed\UnityEngine.Analytics.dll (this message is harmless)
 Loading C:\Users\Jordan\Desktop\FootballLifeSimulator\Test_Data\Managed\UnityEngine.Analytics.dll into Unity Child Domain
-- Completed reload, in  0.090 seconds
+- Completed reload, in  0.076 seconds
 Platform assembly: C:\Users\Jordan\Desktop\FootballLifeSimulator\Test_Data\Managed\System.Core.dll (this message is harmless)
 Platform assembly: C:\Users\Jordan\Desktop\FootballLifeSimulator\Test_Data\Managed\System.dll (this message is harmless)
 desktop: 1920x1080 60Hz; virtual: 3840x1080 at 0,0
 <RI> Initializing input.
 <RI> Input initialized.
 <RI> Initialized touch support.
-UnloadTime: 4.121581 ms
+UnloadTime: 2.570378 ms
+Aldershot Town 2 - 2 Boreham Wood
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+Braintree Town 3 - 1 Barrow
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+Bromley 2 - 1 York City
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+Chester 2 - 1 Wrexham
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+Dagenham & Redbridge 3 - 2 Woking
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+Dover Athletic 1 - 3 Tranmere Rovers
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+Eastleigh 2 - 2 Torquay United
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+Forest Green Rovers 3 - 1 Sutton United
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+Gateshead 2 - 0 Southport
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+Guiseley 0 - 2 Solihull Moors
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+Lincoln City 2 - 2 North Ferriby United
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+Macclesfield Town 1 - 0 Maidstone United
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+Braintree Town 0 - 1 Aldershot Town
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+Bromley 0 - 6 Boreham Wood
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+Chester 0 - 3 Barrow
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+Dagenham & Redbridge 1 - 0 York City
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+Dover Athletic 3 - 0 Wrexham
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+Eastleigh 2 - 2 Woking
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+Forest Green Rovers 2 - 2 Tranmere Rovers
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+Gateshead 0 - 0 Torquay United
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+Guiseley 2 - 1 Sutton United
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+Lincoln City 2 - 2 Southport
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+Macclesfield Town 1 - 1 Solihull Moors
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+Maidstone United 2 - 1 North Ferriby United
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
 Setting up 1 worker threads for Enlighten.
-  Thread -> id: 394 -> priority: 1 
+  Thread -> id: a4 -> priority: 1 

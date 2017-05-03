@@ -1,17 +1,89 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Threading;
 using UnityEngine;
+using UnityEngine.UI;
 
-public class MatchManager : MonoBehaviour {
+public class MatchManager : MonoBehaviour
+{
     public PlayerManager playerManager;
     public LeagueManager leagueManager;
+    public GameObject EntryPrefab;
+
+    public Text team1;
+    public Text team2;
+    public Text score;
+
     private const int BYE = -1;
 
-    private void Start()
+    public void roundRobinSchedule(int day, int leagueID)
     {
-        giveResult(1, 3);
+        List<Club> teamsLeague = new List<Club>();
+        for (int i = 0; i < leagueManager.clubs.Length; i++)
+        {
+            if (leagueManager.clubs[i].LeagueID == playerManager.getLeagueID())
+            {
+                teamsLeague.AddRange(leagueManager.clubs[i]);
+            }
+        }
+
+        int numDays = leagueManager.clubs.Length - 1;
+        int halfsize = leagueManager.clubs.Length / 2;
+        
+        List<Club> temp = new List<Club>();
+        List<Club> teams = new List<Club>();
+
+        teams.AddRange(leagueManager.clubs);
+        temp.AddRange(leagueManager.clubs);
+        teams.RemoveAt(0);
+
+        int teamSize = teams.Count;
+
+        if (day < numDays * 2)
+        {
+            if (day % 2 == 0)
+            {
+                int teamIdx = day % teamSize;
+
+                giveResult(teams[teamIdx].TeamID, temp[0].TeamID);
+
+                for (int idx = 0; idx < halfsize; idx++)
+                {
+                    int firstTeam = (day + idx) % teamSize;
+                    int secondTeam = ((day + teamSize) - idx) % teamSize;
+
+                    if (firstTeam != secondTeam)
+                    {
+                        giveResult(teams[firstTeam].TeamID, teams[secondTeam].TeamID);
+                    }
+                }
+            }
+
+            if (day % 2 != 0)
+            {
+                int teamIdx = day % teamSize;
+
+                giveResult(temp[0].TeamID, teams[teamIdx].TeamID);
+
+                for (int idx = 0; idx < halfsize; idx++)
+                {
+                    int firstTeam = (day + idx) % teamSize;
+                    int secondTeam = ((day + teamSize) - idx) % teamSize;
+
+                    if (firstTeam != secondTeam)
+                    {
+                        giveResult(teams[firstTeam].TeamID, teams[secondTeam].TeamID);
+                    }
+                }
+            }
+        }
     }
 
+    public void destroyClones()
+    {
+        for (int i = transform.childCount - 1; i >= 0; i--)
+            Destroy(transform.GetChild(i).gameObject);
+    }
 
     public void giveResult(int teamA, int teamB)
     {
@@ -46,17 +118,36 @@ public class MatchManager : MonoBehaviour {
         int teamBOverall = (teamB_def + teamB_mid + teamB_att) / 3;
 
         int homeGoals = getGoals(teamAOverall, teamBOverall, true);
-        int awayeGoals = getGoals(teamBOverall, teamAOverall, false);
+        int awayGoals = getGoals(teamBOverall, teamAOverall, false);
 
-        Debug.Log(homeGoals + " - " + awayeGoals + " | Team A Overall: " + teamAOverall + " - Team B Overall " + teamBOverall);
-        leagueManager.addResult(teamA, teamB, homeGoals, awayeGoals, playerManager.getYear());
+
+        Debug.Log(leagueManager.getTeamName(teamA) + " " + homeGoals + " - " + awayGoals + " " + leagueManager.getTeamName(teamB));
+
+        GameObject go = (GameObject)Instantiate(EntryPrefab);
+        go.transform.SetParent(this.transform, false);
+
+        if (leagueManager.getTeamName(teamA) != playerManager.getTeamName() && leagueManager.getTeamName(teamB) != playerManager.getTeamName())
+        {
+            go.transform.Find("Team 1").GetComponent<Text>().text = leagueManager.getTeamName(teamA) + "  ";
+            go.transform.Find("Team 1 score").GetComponent<Text>().text = homeGoals.ToString();
+            go.transform.Find("Team 2").GetComponent<Text>().text = leagueManager.getTeamName(teamB);
+            go.transform.Find("Team 2 score").GetComponent<Text>().text = awayGoals.ToString();
+        }
+        else
+        {
+            team1.text = leagueManager.getTeamName(teamA);
+            team2.text = leagueManager.getTeamName(teamB);
+            score.text = homeGoals.ToString() + " - " + awayGoals.ToString();
+        }
+
+        leagueManager.addResult(teamA, teamB, homeGoals, awayGoals, playerManager.getYear());
     }
 
     public int getGoals(int ratingA, int ratingB, bool homeAway)
     {
         int goals = 0;
         int randomInt = Random.Range(0, 101);
-        
+
         int skillDifference = ratingA - ratingB;
 
         if (homeAway)
@@ -64,12 +155,9 @@ public class MatchManager : MonoBehaviour {
         else
             skillDifference = skillDifference - 3;
 
-        Debug.Log(ratingA + " = " + randomInt + " | " + skillDifference);
-
         //If there is a huge skill cap (rating A better than rating B)
         if (skillDifference >= 25)
-          {
-            Debug.Log("+25");
+        {
             if (randomInt < 90)
             {
                 if (randomInt < 30)
@@ -86,7 +174,6 @@ public class MatchManager : MonoBehaviour {
         //If there is a huge skill cap (rating A better than rating B)
         else if (skillDifference <= -25)
         {
-            Debug.Log("-25");
             if (randomInt < 10)
             {
                 if (randomInt < 10)
@@ -99,7 +186,6 @@ public class MatchManager : MonoBehaviour {
         //Still a pretty huge cap but doable
         else if (skillDifference >= 10)
         {
-            Debug.Log("+5");
             if (randomInt < 80)
             {
                 if (randomInt < 10)
@@ -116,8 +202,6 @@ public class MatchManager : MonoBehaviour {
         //Still a pretty huge cap but doable
         else if (skillDifference <= -10)
         {
-
-            Debug.Log("-10");
             if (randomInt < 40)
             {
                 if (randomInt < 10)
@@ -132,8 +216,6 @@ public class MatchManager : MonoBehaviour {
         //Mid cap
         else if (skillDifference >= 5)
         {
-
-            Debug.Log("+5");
             if (randomInt < 75)
             {
                 if (randomInt < 10)
@@ -150,7 +232,6 @@ public class MatchManager : MonoBehaviour {
         //Still a pretty huge cap but doable
         else if (skillDifference <= -5)
         {
-            Debug.Log("-5");
             if (randomInt < 60)
             {
                 if (randomInt < 20)
@@ -165,7 +246,6 @@ public class MatchManager : MonoBehaviour {
         //comparable
         else
         {
-            Debug.Log("comparable");
             if (randomInt < 70)
             {
                 if (randomInt < 5)

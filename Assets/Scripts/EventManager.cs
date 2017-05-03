@@ -14,6 +14,7 @@ public class EventManager : MonoBehaviour
     public bool experienceBar = false;
 
     public GameObject panel;
+    public GameObject button;
     public PlayerManager playerManager;
 
     private void Update()
@@ -32,6 +33,11 @@ public class EventManager : MonoBehaviour
 
         experienceInfo.text = eventName + " experience: " + playerManager.getExp(eventName) + "/100";
 
+    }
+
+    public void setActive(bool trueFalse)
+    {
+        button.SetActive(trueFalse);
     }
 
     public void Wait(float seconds, System.Action action)

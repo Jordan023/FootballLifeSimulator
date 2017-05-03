@@ -5,7 +5,9 @@ using UnityEngine.UI;
 
 public class PlayerScoreList : MonoBehaviour {
     public GameObject playerScoreEntryPrefab;
+    public Font boldFont;
 
+    public PlayerManager playerManager;
     ScoreManager scoreManager;
 
     int lastChangeCounter;
@@ -47,9 +49,21 @@ public class PlayerScoreList : MonoBehaviour {
             i++;
             GameObject go = (GameObject)Instantiate(playerScoreEntryPrefab);
             go.transform.SetParent(this.transform, false);
-            go.transform.Find("Position").GetComponent<Text>().text = i.ToString() ;
-            go.transform.Find("Team").GetComponent<Text>().text = name;
-            go.transform.Find("Points").GetComponent<Text>().text = scoreManager.getScore(name, "points").ToString();
+            if (name == playerManager.getTeamName())
+            {
+                go.transform.Find("Position").GetComponent<Text>().text = i.ToString();
+                go.transform.Find("Position").GetComponent<Text>().font = boldFont;
+                go.transform.Find("Team").GetComponent<Text>().text = name;
+                go.transform.Find("Team").GetComponent<Text>().font = boldFont;
+                go.transform.Find("Points").GetComponent<Text>().text = scoreManager.getScore(name, "points").ToString();
+                go.transform.Find("Points").GetComponent<Text>().font = boldFont;
+            }
+            else
+            {
+                go.transform.Find("Position").GetComponent<Text>().text = i.ToString();
+                go.transform.Find("Team").GetComponent<Text>().text = name;
+                go.transform.Find("Points").GetComponent<Text>().text = scoreManager.getScore(name, "points").ToString();
+            }
         }
     }
 }

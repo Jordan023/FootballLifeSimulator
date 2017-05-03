@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class PlayerManager : MonoBehaviour {
 
-    Player character = new Player(1, 0, 6, 10, "Jordan Munk", 1, 1);
+    Player character = new Player(98, 0, 6, 10, "Jordan Munk", 1, 1);
 
     Attribute[] attributes = {
       new Attribute("Pace", 1, 0),
@@ -31,13 +31,9 @@ public class PlayerManager : MonoBehaviour {
       new Attribute("GK Kicking", 1, 0)
      };
 
-    public EventManager button_1;
-    public EventManager button_2;
-    public EventManager button_3;
-    public EventManager button_4;
-    public EventManager button_5;
-
-    public LeagueManager league;
+    public LeagueManager leagueManager;
+    public MatchManager matchManager;
+    public ScoreManager scoreManager;
 
     public Text levels1Display;
     public Text levels2Display;
@@ -53,7 +49,6 @@ public class PlayerManager : MonoBehaviour {
     public GameObject panel;
     public Text panelText;
     public bool levelUpBool = false;
-
 
     // Use this for initialization
     void Start () {
@@ -74,7 +69,7 @@ public class PlayerManager : MonoBehaviour {
 
     private void Update()
     {
-        generalDisplay.text = "Name: " + character.CharacterName + "\nAge: " + character.Age + " years old" + "\nCurrent Team: " + league.getTeamName(character.TeamID);
+        generalDisplay.text = "Name: " + character.CharacterName + "\nAge: " + character.Age + " years old" + "\nCurrent Team: " + leagueManager.getTeamName(character.TeamID);
 
         moneyDisplay.text = "Money: $" + character.Money.ToString("F0");
         energyDisplay.text = "Energy: " + character.Energy + "/10";
@@ -144,11 +139,36 @@ public class PlayerManager : MonoBehaviour {
         return character.Energy;
     }
 
+    public int getTeamID()
+    {
+        return character.TeamID;
+    }
+
+    public string getTeamName()
+    {
+        return leagueManager.getTeamName(getTeamID());
+    }
 
     public int getYear()
     {
         return character.Year;
     }
+
+    public int getWeek()
+    {
+        return character.Week;
+    }
+
+    public void setWeek(int week)
+    {
+        character.Week = week;
+    }
+
+    public void setYear(int year)
+    {
+        character.Year = year;
+    }
+
 
     public void setEnergy(int energy)
     {
@@ -163,30 +183,5 @@ public class PlayerManager : MonoBehaviour {
         Wait(5, () => {
             levelUpBool = false;
         });
-    }
-
-    public void goToTheNextWeek()
-    {
-        if (character.Week + 1 > 52)
-        {
-            character.Year++;
-            character.Week = 1;
-            character.Energy = 10;
-            button_1.isNameFound = false;
-            button_2.isNameFound = false;
-            button_3.isNameFound = false;
-            button_4.isNameFound = false;
-            button_5.isNameFound = false;
-        }
-        else
-        {
-            character.Week++;
-            character.Energy = 10;
-            button_1.isNameFound = false;
-            button_2.isNameFound = false;
-            button_3.isNameFound = false;
-            button_4.isNameFound = false;
-            button_5.isNameFound = false;
-        }
     }
 }

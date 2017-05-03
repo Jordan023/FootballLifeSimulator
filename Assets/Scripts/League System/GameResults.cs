@@ -4,11 +4,11 @@ using UnityEngine;
 
 public class GameResults {
 
-    private int teamA;
-    private int teamB;
-    private int homeGoals;
-    private int awayGoals;
-    private int season;
+    int teamA;
+    int teamB;
+    int homeGoals;
+    int awayGoals;
+    int season;
 
     public int TeamA
     {

@@ -3,14 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Club {
-    private int teamID;
-    private string teamName;
+    int teamID;
+    string teamName;
 
-    private int leagueID;
+    int leagueID;
 
-    private int defRating;
-    private int midRating;
-    private int attRating;
+    int defRating;
+    int midRating;
+    int attRating;
 
     public int TeamID
     {

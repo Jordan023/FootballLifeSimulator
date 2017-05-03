@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class League {
 
-    private int leagueID;
-    private string leagueName;
-    private int countryID;
+    int leagueID;
+    string leagueName;
+    int countryID;
 
     public int LeagueID
     {

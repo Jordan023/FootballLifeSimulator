@@ -9,24 +9,29 @@ public class ScoreManager : MonoBehaviour {
     Dictionary<string, Dictionary<string, int>> playerScores;
     public PlayerManager playerManager;
     public LeagueManager leagueManager;
+    public bool nextWeek = true;
 
     int changeCounter = 0;
 
-    void Start()
+    void Update()
     {
-        for (int i = 0; i < leagueManager.clubs.Length; i++)
+        if (nextWeek)
         {
-            if (leagueManager.clubs[i].LeagueID == 1)
+            for (int i = 0; i < leagueManager.clubs.Length; i++)
             {
-                setScore(leagueManager.clubs[i].TeamName, "played", leagueManager.getGamesPlayed(leagueManager.clubs[i].TeamID));
-                setScore(leagueManager.clubs[i].TeamName, "won", leagueManager.getGamesWon(leagueManager.clubs[i].TeamID));
-                setScore(leagueManager.clubs[i].TeamName, "draw", leagueManager.getGamesDraw(leagueManager.clubs[i].TeamID));
-                setScore(leagueManager.clubs[i].TeamName, "lost", leagueManager.getGamesLost(leagueManager.clubs[i].TeamID));
-                setScore(leagueManager.clubs[i].TeamName, "goalsHome", leagueManager.getGoalsScored(leagueManager.clubs[i].TeamID));
-                setScore(leagueManager.clubs[i].TeamName, "goalsAway", leagueManager.getGoalsAgainst(leagueManager.clubs[i].TeamID));
-                setScore(leagueManager.clubs[i].TeamName, "goalsDifference", leagueManager.getGoalDifference(leagueManager.clubs[i].TeamID));
-                setScore(leagueManager.clubs[i].TeamName, "points", leagueManager.getPoints(leagueManager.clubs[i].TeamID));
-            }     
+                if (leagueManager.clubs[i].LeagueID == leagueManager.getLeagueID(playerManager.getTeamID()))
+                {
+                    setScore(leagueManager.clubs[i].TeamName, "played", leagueManager.getGamesPlayed(leagueManager.clubs[i].TeamID));
+                    setScore(leagueManager.clubs[i].TeamName, "won", leagueManager.getGamesWon(leagueManager.clubs[i].TeamID));
+                    setScore(leagueManager.clubs[i].TeamName, "draw", leagueManager.getGamesDraw(leagueManager.clubs[i].TeamID));
+                    setScore(leagueManager.clubs[i].TeamName, "lost", leagueManager.getGamesLost(leagueManager.clubs[i].TeamID));
+                    setScore(leagueManager.clubs[i].TeamName, "goalsHome", leagueManager.getGoalsScored(leagueManager.clubs[i].TeamID));
+                    setScore(leagueManager.clubs[i].TeamName, "goalsAway", leagueManager.getGoalsAgainst(leagueManager.clubs[i].TeamID));
+                    setScore(leagueManager.clubs[i].TeamName, "goalsDifference", leagueManager.getGoalDifference(leagueManager.clubs[i].TeamID));
+                    setScore(leagueManager.clubs[i].TeamName, "points", leagueManager.getPoints(leagueManager.clubs[i].TeamID));
+                }
+            }
+            nextWeek = false;
         }
     }
 
