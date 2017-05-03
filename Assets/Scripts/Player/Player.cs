@@ -3,19 +3,27 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Player {
-    private int teamID;
-    private float money;
-    private int age;
-    private int energy;
-    private string characterName;
-    private int year = 1;
-    private int week = 1;
+    int teamID;
+    int leagueID;
+    float money;
+    int age;
+    int energy;
+    string characterName;
+    int year = 1;
+    int week = 1;
 
     public int TeamID
     {
         get { return teamID; }
         set { teamID = value; }
     }
+
+    public int LeagueID
+    {
+        get { return leagueID; }
+        set { leagueID = value; }
+    }
+
     public float Money
     {
         get { return money; }
@@ -47,9 +55,10 @@ public class Player {
         set { week = value; }
     }
 
-    public Player(int teamID, float money, int age, int energy, string characterName, int year, int week)
+    public Player(int teamID, int leagueID, float money, int age, int energy, string characterName, int year, int week)
     {
         this.TeamID = teamID;
+        this.LeagueID = leagueID;
         this.Money = money;
         this.Age = age;
         this.Energy = energy;

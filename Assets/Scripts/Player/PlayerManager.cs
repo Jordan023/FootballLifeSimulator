@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class PlayerManager : MonoBehaviour {
 
-    Player character = new Player(98, 0, 6, 10, "Jordan Munk", 1, 1);
+    Player character = new Player(98, 5, 0, 6, 10, "Jordan Munk", 1, 1);
 
     Attribute[] attributes = {
       new Attribute("Pace", 1, 0),
@@ -142,6 +142,11 @@ public class PlayerManager : MonoBehaviour {
     public int getTeamID()
     {
         return character.TeamID;
+    }
+
+    public int getLeagueID()
+    {
+        return character.LeagueID;
     }
 
     public string getTeamName()

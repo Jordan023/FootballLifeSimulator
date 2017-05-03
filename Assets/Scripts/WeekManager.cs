@@ -34,9 +34,9 @@ public class WeekManager : MonoBehaviour
         {
             playerManager.setWeek(playerManager.getWeek() + 1);
             playerManager.setEnergy(10);
-            matchManager.roundRobinSchedule(playerManager.getWeek() - 1);
         }
 
+        matchManager.roundRobinSchedule(playerManager.getWeek() - 1, 5);
 
         button_1.isNameFound = false;
         button_2.isNameFound = false;

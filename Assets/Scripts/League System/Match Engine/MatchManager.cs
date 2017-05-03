@@ -23,18 +23,20 @@ public class MatchManager : MonoBehaviour
         {
             if (leagueManager.clubs[i].LeagueID == playerManager.getLeagueID())
             {
-                teamsLeague.AddRange(leagueManager.clubs[i]);
+                teamsLeague.Add(leagueManager.clubs[i]);
             }
         }
 
-        int numDays = leagueManager.clubs.Length - 1;
-        int halfsize = leagueManager.clubs.Length / 2;
+        Debug.Log(teamsLeague.Count);
+
+        int numDays = teamsLeague.Count - 1;
+        int halfsize = teamsLeague.Count / 2;
         
         List<Club> temp = new List<Club>();
         List<Club> teams = new List<Club>();
 
-        teams.AddRange(leagueManager.clubs);
-        temp.AddRange(leagueManager.clubs);
+        teams.AddRange(teamsLeague);
+        temp.AddRange(teamsLeague);
         teams.RemoveAt(0);
 
         int teamSize = teams.Count;
