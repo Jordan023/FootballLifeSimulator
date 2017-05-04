@@ -18,63 +18,63 @@ public class MatchManager : MonoBehaviour
 
     public void roundRobinSchedule(int day, int leagueID)
     {
-        List<Club> teamsLeague = new List<Club>();
-        for (int i = 0; i < leagueManager.clubs.Length; i++)
-        {
-            if (leagueManager.clubs[i].LeagueID == playerManager.getLeagueID())
+            if (leagueID == 1 && day <= 49 || leagueID == 2 && day <= 49 || leagueID == 3 && day <= 49 || leagueID == 4 && day <= 49 || leagueID == 5 && day <= 41)
             {
-                teamsLeague.Add(leagueManager.clubs[i]);
-            }
-        }
-
-        Debug.Log(teamsLeague.Count);
-
-        int numDays = teamsLeague.Count - 1;
-        int halfsize = teamsLeague.Count / 2;
-        
-        List<Club> temp = new List<Club>();
-        List<Club> teams = new List<Club>();
-
-        teams.AddRange(teamsLeague);
-        temp.AddRange(teamsLeague);
-        teams.RemoveAt(0);
-
-        int teamSize = teams.Count;
-
-        if (day < numDays * 2)
-        {
-            if (day % 2 == 0)
-            {
-                int teamIdx = day % teamSize;
-
-                giveResult(teams[teamIdx].TeamID, temp[0].TeamID);
-
-                for (int idx = 0; idx < halfsize; idx++)
+                List<Club> teamsLeague = new List<Club>();
+                for (int i = 0; i < leagueManager.clubs.Length; i++)
                 {
-                    int firstTeam = (day + idx) % teamSize;
-                    int secondTeam = ((day + teamSize) - idx) % teamSize;
-
-                    if (firstTeam != secondTeam)
+                    if (leagueManager.clubs[i].LeagueID == leagueID)
                     {
-                        giveResult(teams[firstTeam].TeamID, teams[secondTeam].TeamID);
+                        teamsLeague.Add(leagueManager.clubs[i]);
                     }
                 }
-            }
 
-            if (day % 2 != 0)
+                int halfsize = teamsLeague.Count / 2;
+
+                List<Club> temp = new List<Club>();
+                List<Club> teams = new List<Club>();
+
+                teams.AddRange(teamsLeague);
+                temp.AddRange(teamsLeague);
+                teams.RemoveAt(0);
+
+                int teamSize = teams.Count;
+
+            if (day > 3)
             {
-                int teamIdx = day % teamSize;
-
-                giveResult(temp[0].TeamID, teams[teamIdx].TeamID);
-
-                for (int idx = 0; idx < halfsize; idx++)
+                if (day % 2 == 0)
                 {
-                    int firstTeam = (day + idx) % teamSize;
-                    int secondTeam = ((day + teamSize) - idx) % teamSize;
+                    int teamIdx = day % teamSize;
 
-                    if (firstTeam != secondTeam)
+                    giveResult(teams[teamIdx].TeamID, temp[0].TeamID, leagueID);
+
+                    for (int idx = 0; idx < halfsize; idx++)
                     {
-                        giveResult(teams[firstTeam].TeamID, teams[secondTeam].TeamID);
+                        int firstTeam = (day + idx) % teamSize;
+                        int secondTeam = ((day + teamSize) - idx) % teamSize;
+
+                        if (firstTeam != secondTeam)
+                        {
+                            giveResult(teams[firstTeam].TeamID, teams[secondTeam].TeamID, leagueID);
+                        }
+                    }
+                }
+
+                if (day % 2 != 0)
+                {
+                    int teamIdx = day % teamSize;
+
+                    giveResult(temp[0].TeamID, teams[teamIdx].TeamID, leagueID);
+
+                    for (int idx = 0; idx < halfsize; idx++)
+                    {
+                        int firstTeam = (day + idx) % teamSize;
+                        int secondTeam = ((day + teamSize) - idx) % teamSize;
+
+                        if (firstTeam != secondTeam)
+                        {
+                            giveResult(teams[firstTeam].TeamID, teams[secondTeam].TeamID, leagueID);
+                        }
                     }
                 }
             }
@@ -87,7 +87,7 @@ public class MatchManager : MonoBehaviour
             Destroy(transform.GetChild(i).gameObject);
     }
 
-    public void giveResult(int teamA, int teamB)
+    public void giveResult(int teamA, int teamB, int leagueID)
     {
         int teamA_def = 0;
         int teamA_mid = 0;
@@ -122,26 +122,29 @@ public class MatchManager : MonoBehaviour
         int homeGoals = getGoals(teamAOverall, teamBOverall, true);
         int awayGoals = getGoals(teamBOverall, teamAOverall, false);
 
+//     Debug.Log(leagueManager.getTeamName(teamA) + " " + homeGoals + " - " + awayGoals + " " + leagueManager.getTeamName(teamB));
 
-        Debug.Log(leagueManager.getTeamName(teamA) + " " + homeGoals + " - " + awayGoals + " " + leagueManager.getTeamName(teamB));
-
-        GameObject go = (GameObject)Instantiate(EntryPrefab);
-        go.transform.SetParent(this.transform, false);
-
-        if (leagueManager.getTeamName(teamA) != playerManager.getTeamName() && leagueManager.getTeamName(teamB) != playerManager.getTeamName())
+        if (leagueID == playerManager.getLeagueID())
         {
-            go.transform.Find("Team 1").GetComponent<Text>().text = leagueManager.getTeamName(teamA) + "  ";
-            go.transform.Find("Team 1 score").GetComponent<Text>().text = homeGoals.ToString();
-            go.transform.Find("Team 2").GetComponent<Text>().text = leagueManager.getTeamName(teamB);
-            go.transform.Find("Team 2 score").GetComponent<Text>().text = awayGoals.ToString();
-        }
-        else
-        {
-            team1.text = leagueManager.getTeamName(teamA);
-            team2.text = leagueManager.getTeamName(teamB);
-            score.text = homeGoals.ToString() + " - " + awayGoals.ToString();
-        }
+            GameObject go = (GameObject)Instantiate(EntryPrefab);
+            go.transform.SetParent(this.transform, false);
 
+     
+            if (leagueManager.getTeamName(teamA) == playerManager.getTeamName() || leagueManager.getTeamName(teamB) == playerManager.getTeamName())
+            {
+                Destroy(go);
+                team1.text = leagueManager.getTeamName(teamA);
+                team2.text = leagueManager.getTeamName(teamB);
+                score.text = homeGoals.ToString() + " - " + awayGoals.ToString();
+            }
+            else
+            {
+                go.transform.Find("Team 1").GetComponent<Text>().text = leagueManager.getTeamName(teamA) + "  ";
+                go.transform.Find("Team 1 score").GetComponent<Text>().text = homeGoals.ToString();
+                go.transform.Find("Team 2").GetComponent<Text>().text = leagueManager.getTeamName(teamB);
+                go.transform.Find("Team 2 score").GetComponent<Text>().text = awayGoals.ToString();
+            }
+        }
         leagueManager.addResult(teamA, teamB, homeGoals, awayGoals, playerManager.getYear());
     }
 

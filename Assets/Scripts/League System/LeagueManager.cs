@@ -173,6 +173,17 @@ public class LeagueManager : MonoBehaviour {
         return 0;
     }
 
+    public void setLeagueID(string teamName, int leagueID)
+    {
+        for (int i = 0; i < clubs.Length; i++)
+        {
+            if (clubs[i].TeamName == teamName)
+            {
+                clubs[i].LeagueID = leagueID;
+            }
+        }
+    }
+
     public int getGamesPlayed(int teamID)
     {
         int gamesPlayed = 0;

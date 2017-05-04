@@ -26,7 +26,7 @@ public class PlayerScoreList : MonoBehaviour {
             return;
         }
 
-        if(scoreManager.getChangeCounter() == lastChangeCounter)
+        if (scoreManager.getChangeCounter() == lastChangeCounter)
         {
             //No change since last update!
             return;
@@ -41,7 +41,7 @@ public class PlayerScoreList : MonoBehaviour {
             Destroy(c.gameObject);
         }
 
-        string[] names = scoreManager.getTeamNames("points", "goalsDifference");
+        string[] names = scoreManager.getTeamNames("points", "goalsDifference", playerManager.getLeagueID());
 
         int i = 0;
         foreach (string name in names)
@@ -55,14 +55,14 @@ public class PlayerScoreList : MonoBehaviour {
                 go.transform.Find("Position").GetComponent<Text>().font = boldFont;
                 go.transform.Find("Team").GetComponent<Text>().text = name;
                 go.transform.Find("Team").GetComponent<Text>().font = boldFont;
-                go.transform.Find("Points").GetComponent<Text>().text = scoreManager.getScore(name, "points").ToString();
+                go.transform.Find("Points").GetComponent<Text>().text = scoreManager.getScore(name, "points", playerManager.getLeagueID()).ToString();
                 go.transform.Find("Points").GetComponent<Text>().font = boldFont;
             }
             else
             {
                 go.transform.Find("Position").GetComponent<Text>().text = i.ToString();
                 go.transform.Find("Team").GetComponent<Text>().text = name;
-                go.transform.Find("Points").GetComponent<Text>().text = scoreManager.getScore(name, "points").ToString();
+                go.transform.Find("Points").GetComponent<Text>().text = scoreManager.getScore(name, "points", playerManager.getLeagueID()).ToString();
             }
         }
     }
