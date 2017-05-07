@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class LevelManager : MonoBehaviour
 {
-    public GameObject mainMenu, optionsMenu, game;
+    public GameObject mainMenu, optionsMenu, game, player, team, shop, standing;
     public PlayerManager playerManager;
     public LeagueManager leagueManager;
     public ScoreManager scoreManager;
@@ -33,6 +33,56 @@ public class LevelManager : MonoBehaviour
             game.gameObject.SetActive(clicked);
             mainMenu.gameObject.SetActive(true);
         }
+    }
+
+    public void PlayerScreen()
+    {
+            player.gameObject.SetActive(true);
+            mainMenu.gameObject.SetActive(false);
+            game.gameObject.SetActive(false);
+            team.gameObject.SetActive(false);
+            shop.gameObject.SetActive(false);
+            standing.gameObject.SetActive(false);
+    }
+
+    public void TeamScreen()
+    {
+        player.gameObject.SetActive(false);
+        mainMenu.gameObject.SetActive(false);
+        game.gameObject.SetActive(false);
+        team.gameObject.SetActive(true);
+        shop.gameObject.SetActive(false);
+        standing.gameObject.SetActive(false);
+    }
+
+    public void ShopScreen()
+    {
+        player.gameObject.SetActive(false);
+        mainMenu.gameObject.SetActive(false);
+        game.gameObject.SetActive(false);
+        team.gameObject.SetActive(false);
+        shop.gameObject.SetActive(true);
+        standing.gameObject.SetActive(false);
+    }
+
+    public void StandingScreen()
+    {
+        player.gameObject.SetActive(false);
+        mainMenu.gameObject.SetActive(false);
+        game.gameObject.SetActive(false);
+        team.gameObject.SetActive(false);
+        shop.gameObject.SetActive(false);
+        standing.gameObject.SetActive(true);
+    }
+
+    public void GameScreen()
+    {
+        player.gameObject.SetActive(false);
+        mainMenu.gameObject.SetActive(false);
+        game.gameObject.SetActive(true);
+        team.gameObject.SetActive(false);
+        shop.gameObject.SetActive(false);
+        standing.gameObject.SetActive(false);
     }
 
     public void OptionsMenu(bool clicked)

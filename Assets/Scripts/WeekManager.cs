@@ -15,6 +15,7 @@ public class WeekManager : MonoBehaviour
 
     public GameObject panelRight, panelRight2;
     public GameObject panelLeft;
+    public GameObject panelBottom;
 
     public GameObject nextWeekButton_1, nextWeekButton_2;
     public GameObject weekPanel;
@@ -141,6 +142,7 @@ public class WeekManager : MonoBehaviour
         panelLeft.SetActive(trueFalse);
         panelRight.SetActive(trueFalse);
         panelRight2.SetActive(trueFalse);
+        panelBottom.SetActive(trueFalse);
     }
 
     public void changeButtons(bool trueFalse)

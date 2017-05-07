@@ -75,7 +75,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\Scripts\Attribute.cs" />
     <Compile Include="Assets\Scripts\EventManager.cs" />
     <Compile Include="Assets\Scripts\League System\Club.cs" />
     <Compile Include="Assets\Scripts\League System\GameResults.cs" />
@@ -84,8 +83,11 @@
     <Compile Include="Assets\Scripts\League System\Match Engine\MatchManager.cs" />
     <Compile Include="Assets\Scripts\League System\Table\PlayerScoreList.cs" />
     <Compile Include="Assets\Scripts\League System\Table\ScoreManager.cs" />
+    <Compile Include="Assets\Scripts\LevelManager.cs" />
+    <Compile Include="Assets\Scripts\Player\Attribute.cs" />
     <Compile Include="Assets\Scripts\Player\Player.cs" />
     <Compile Include="Assets\Scripts\Player\PlayerManager.cs" />
+    <Compile Include="Assets\Scripts\SaveLoadManager.cs" />
     <Compile Include="Assets\Scripts\WeekManager.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
