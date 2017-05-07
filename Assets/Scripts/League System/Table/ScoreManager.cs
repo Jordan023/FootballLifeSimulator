@@ -187,5 +187,4 @@ public class ScoreManager : MonoBehaviour {
     {
         return changeCounter;
     }
-
 }

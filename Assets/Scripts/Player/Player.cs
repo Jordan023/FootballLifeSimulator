@@ -66,4 +66,25 @@ public class Player {
         this.Year = year;
         this.Week = week;
     }
+
+    public void Save()
+    {
+        SaveLoadManager.SavePlayer(this);
+    }
+
+    public void Load()
+    {
+        PlayerData loadedStats = SaveLoadManager.LoadPlayer();
+        this.money = loadedStats.money;
+        this.characterName = loadedStats.name;
+
+        Debug.Log(loadedStats.stats[5]);
+
+        this.TeamID = loadedStats.stats[0];
+        this.LeagueID = loadedStats.stats[1];
+        this.Age = loadedStats.stats[2];
+        this.Energy = loadedStats.stats[3];
+        this.Year = loadedStats.stats[4];
+        this.Week = loadedStats.stats[5];
+    }
 }

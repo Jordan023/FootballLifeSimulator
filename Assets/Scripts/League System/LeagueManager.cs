@@ -7,6 +7,9 @@ public class LeagueManager : MonoBehaviour {
 
     public List<GameResults> results = new List<GameResults>();
 
+    public PlayerManager playerManager;
+    public ScoreManager scoreManager;
+
     public Text tableDisplay;
     public string tableText;
 
@@ -190,8 +193,11 @@ public class LeagueManager : MonoBehaviour {
 
         foreach (GameResults result in results)
         {
-            if (result.TeamA == teamID || result.TeamB == teamID)
-                gamesPlayed++;
+            if (result.Season == playerManager.getSeason())
+            {
+                if (result.TeamA == teamID || result.TeamB == teamID)
+                    gamesPlayed++;
+            }
         }
 
         return gamesPlayed;
@@ -203,13 +209,16 @@ public class LeagueManager : MonoBehaviour {
 
         foreach (GameResults result in results)
         {
-            if (result.TeamA == teamID)
-                if (result.HomeGoals > result.AwayGoals)
-                    gamesWon++;
+            if (result.Season == playerManager.getSeason())
+            {
+                if (result.TeamA == teamID)
+                    if (result.HomeGoals > result.AwayGoals)
+                        gamesWon++;
 
-            if (result.TeamB == teamID)
-                if (result.AwayGoals > result.HomeGoals)
-                    gamesWon++;
+                if (result.TeamB == teamID)
+                    if (result.AwayGoals > result.HomeGoals)
+                        gamesWon++;
+            }
         }
 
         return gamesWon;
@@ -221,9 +230,12 @@ public class LeagueManager : MonoBehaviour {
 
         foreach (GameResults result in results)
         {
-            if (result.TeamA == teamID || result.TeamB == teamID)
-                if (result.HomeGoals == result.AwayGoals)
-                    gamesDraw++;
+            if (result.Season == playerManager.getSeason())
+            {
+                if (result.TeamA == teamID || result.TeamB == teamID)
+                    if (result.HomeGoals == result.AwayGoals)
+                        gamesDraw++;
+            }
         }
 
         return gamesDraw;
@@ -235,13 +247,16 @@ public class LeagueManager : MonoBehaviour {
 
         foreach (GameResults result in results)
         {
-            if (result.TeamA == teamID)
-                if (result.HomeGoals < result.AwayGoals)
-                    gamesLost++;
+            if (result.Season == playerManager.getSeason())
+            {
+                if (result.TeamA == teamID)
+                    if (result.HomeGoals < result.AwayGoals)
+                        gamesLost++;
 
-            if (result.TeamB == teamID)
-                if (result.AwayGoals < result.HomeGoals)
-                    gamesLost++;
+                if (result.TeamB == teamID)
+                    if (result.AwayGoals < result.HomeGoals)
+                        gamesLost++;
+            }
         }
 
         return gamesLost;
@@ -253,12 +268,14 @@ public class LeagueManager : MonoBehaviour {
 
         foreach (GameResults result in results)
         {
-            if (result.TeamA == teamID)
-                goalsScored = goalsScored + result.HomeGoals;
+            if (result.Season == playerManager.getSeason())
+            {
+                if (result.TeamA == teamID)
+                    goalsScored = goalsScored + result.HomeGoals;
 
-            if (result.TeamB == teamID)
-                goalsScored = goalsScored + result.AwayGoals;
-
+                if (result.TeamB == teamID)
+                    goalsScored = goalsScored + result.AwayGoals;
+            }
         }
 
         return goalsScored;
@@ -270,12 +287,14 @@ public class LeagueManager : MonoBehaviour {
 
         foreach (GameResults result in results)
         {
-            if (result.TeamA == teamID)
-                goalsAgainst = goalsAgainst + result.AwayGoals;
+            if (result.Season == playerManager.getSeason())
+            {
+                if (result.TeamA == teamID)
+                    goalsAgainst = goalsAgainst + result.AwayGoals;
 
-            if (result.TeamB == teamID)
-                goalsAgainst = goalsAgainst + result.HomeGoals;
-
+                if (result.TeamB == teamID)
+                    goalsAgainst = goalsAgainst + result.HomeGoals;
+            }
         }
 
         return goalsAgainst;
@@ -294,5 +313,56 @@ public class LeagueManager : MonoBehaviour {
     public void addResult(int teamA, int teamB, int homeGoals, int awayGoals, int season)
     {
         results.Add(new GameResults(teamA, teamB, homeGoals, awayGoals, season));
+    }
+
+    public void saveClubs()
+    {
+        SaveLoadManager.SaveClubs(clubs);
+    }
+
+    public void loadClubs()
+    {
+        ClubData loadedStats = SaveLoadManager.LoadClubs();
+
+        for (int i = 0; i < loadedStats.teamID.Length; i++)
+        {
+            clubs[i].TeamID = loadedStats.teamID[i];
+            clubs[i].TeamName = loadedStats.teamNames[i];
+            clubs[i].LeagueID = loadedStats.leagueID[i];
+            clubs[i].DefRating = loadedStats.defRatings[i];
+            clubs[i].MidRating = loadedStats.midRatings[i];
+            clubs[i].AttRating = loadedStats.attRatings[i];
+        }
+    }
+
+    public void saveLeagues()
+    {
+        SaveLoadManager.SaveLeagues(leagues);
+    }
+
+    public void loadLeagues()
+    {
+        LeagueData loadedStats = SaveLoadManager.LoadLeagues();
+
+        for (int i = 0; i < loadedStats.countryID.Length; i++)
+        {
+            leagues[i].LeagueID = loadedStats.leagueID[i];
+            leagues[i].LeagueName = loadedStats.leagueName[i];
+            leagues[i].CountryID = loadedStats.countryID[i];
+        }
+    }
+
+    public void saveResults()
+    {
+        SaveLoadManager.SaveResults(results);
+    }
+
+    public void loadResults()
+    {
+        ResultsData loadedStats = SaveLoadManager.LoadResults();
+        for (int i = 0; i < loadedStats.teamA.Length; i++)
+        {
+            addResult(loadedStats.teamA[i], loadedStats.teamB[i], loadedStats.homeGoals[i], loadedStats.awayGoals[i], loadedStats.season[i]);
+        }
     }
 }

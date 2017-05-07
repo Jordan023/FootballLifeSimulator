@@ -9,18 +9,18 @@ public class WeekManager : MonoBehaviour
     public ScoreManager scoreManager;
     public MatchManager matchManager;
     public LeagueManager leagueManager;
+    public PlayerScoreList list;
 
-    public EventManager button_1;
-    public EventManager button_2;
-    public EventManager button_3;
-    public EventManager button_4;
-    public EventManager button_5;
+    public EventManager button_1, button_2, button_3, button_4, button_5;
 
-    public GameObject nextWeekButton_1;
-    public GameObject nextWeekButton_2;
+    public GameObject panelRight, panelRight2;
+    public GameObject panelLeft;
+
+    public GameObject nextWeekButton_1, nextWeekButton_2;
     public GameObject weekPanel;
+    public GameObject reviewPanel;
 
-    public void endOfTheSeason()
+    public void promotionAndRelegation()
     {
         //Premier League
         string[] names5 = scoreManager.getTeamNames("points", "goalsDifference", 5);
@@ -78,53 +78,93 @@ public class WeekManager : MonoBehaviour
         scoreManager.resetLists();
     }
 
+    public void seasonReview(int leagueID)
+    {
+        changePanels(false);
+        changeButtons(false);
+
+        reviewPanel.SetActive(true);
+        list.seasonReview(leagueID);
+    }
+
     public void goToTheNextWeek()
     {
         scoreManager.nextWeek = true;
 
+        playerManager.setEnergy(10);
+
         if (playerManager.getWeek() + 1 > 52)
-        {
-            playerManager.setYear(playerManager.getYear() + 1);
-            playerManager.setWeek(1);
-            playerManager.setEnergy(10);
-            endOfTheSeason();
-        }
+            seasonReview(playerManager.getLeagueID());
         else
         {
             playerManager.setWeek(playerManager.getWeek() + 1);
-            playerManager.setEnergy(10);
+
+            for (int i = 1; i <= 5; i++)
+            {
+                matchManager.roundRobinSchedule(playerManager.getWeek() - 1, i);
+            }
+
+            resetButtons(false);
+            changeButtons(false);
+            weekPanel.SetActive(true);
         }
 
-        matchManager.roundRobinSchedule(playerManager.getWeek() - 1, 1);
-        matchManager.roundRobinSchedule(playerManager.getWeek() - 1, 2);
-        matchManager.roundRobinSchedule(playerManager.getWeek() - 1, 3);
-        matchManager.roundRobinSchedule(playerManager.getWeek() - 1, 4);
-        matchManager.roundRobinSchedule(playerManager.getWeek() - 1, 5);
+        saveGame();
+    }
 
-        button_1.isNameFound = false;
-        button_2.isNameFound = false;
-        button_3.isNameFound = false;
-        button_4.isNameFound = false;
-        button_5.isNameFound = false;
+    public void saveGame()
+    {
+        playerManager.savePlayer();
+        playerManager.saveAttributes();
+        leagueManager.saveClubs();
+        leagueManager.saveLeagues();
+        leagueManager.saveResults();
+    }
 
-        button_1.setActive(false);
-        button_2.setActive(false);
-        button_3.setActive(false);
-        button_4.setActive(false);
-        button_5.setActive(false);
+    public void resetSeason()
+    {
+        promotionAndRelegation();
+        changePanels(true);
+        changeButtons(true);
 
-        nextWeekButton_1.SetActive(false);
-        weekPanel.SetActive(true);
+        reviewPanel.SetActive(false);
+
+        playerManager.setYear(playerManager.getYear() + 1);
+        scoreManager.nextWeek = true;
+        playerManager.setWeek(1);
+
+        saveGame();
+    }
+
+    public void changePanels(bool trueFalse)
+    {
+        panelLeft.SetActive(trueFalse);
+        panelRight.SetActive(trueFalse);
+        panelRight2.SetActive(trueFalse);
+    }
+
+    public void changeButtons(bool trueFalse)
+    {
+        button_1.setActive(trueFalse);
+        button_2.setActive(trueFalse);
+        button_3.setActive(trueFalse);
+        button_4.setActive(trueFalse);
+        button_5.setActive(trueFalse);
+        nextWeekButton_1.SetActive(trueFalse);
+    }
+
+    public void resetButtons(bool trueFalse)
+    {
+        button_1.isNameFound = trueFalse;
+        button_2.isNameFound = trueFalse;
+        button_3.isNameFound = trueFalse;
+        button_4.isNameFound = trueFalse;
+        button_5.isNameFound = trueFalse;
     }
 
     public void resetWeek()
     {
-        button_1.setActive(true);
-        button_2.setActive(true);
-        button_3.setActive(true);
-        button_4.setActive(true);
-        button_5.setActive(true);
-        nextWeekButton_1.SetActive(true);
+        changeButtons(true);
 
         weekPanel.SetActive(false);
         matchManager.destroyClones();

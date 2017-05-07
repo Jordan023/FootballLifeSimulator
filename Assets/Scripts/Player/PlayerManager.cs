@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class PlayerManager : MonoBehaviour {
 
-    Player character = new Player(97, 5, 0, 6, 10, "Jordan Munk", 1, 1);
+    Player player = new Player(97, 5, 0, 6, 10, "Jordan Munk", 1, 1);
 
     Attribute[] attributes = {
       new Attribute("Pace", 1, 0),
@@ -49,6 +49,7 @@ public class PlayerManager : MonoBehaviour {
     public GameObject panel;
     public Text panelText;
     public bool levelUpBool = false;
+    public bool mainMenu = false;
 
     // Use this for initialization
     void Start () {
@@ -69,50 +70,82 @@ public class PlayerManager : MonoBehaviour {
 
     private void Update()
     {
-        generalDisplay.text = "Name: " + character.CharacterName + "\nAge: " + character.Age + " years old" + "\nCurrent Team: " + leagueManager.getTeamName(character.TeamID);
+            generalDisplay.text = "Name: " + player.CharacterName + "\nAge: " + player.Age + " years old" + "\nCurrent Team: " + leagueManager.getTeamName(player.TeamID);
 
-        moneyDisplay.text = "Money: $" + character.Money.ToString("F0");
-        energyDisplay.text = "Energy: " + character.Energy + "/10";
-        weekDisplay.text = "Year " + character.Year + " | Week " + character.Week;
+            moneyDisplay.text = "Money: $" + player.Money.ToString("F0");
+            energyDisplay.text = "Energy: " + player.Energy + "/10";
+            weekDisplay.text = "Year " + player.Year + " | Week " + player.Week;
 
-        levels1Display.text =
-         "\n Pace: " + attributes[0].AttributeLevel +
-         "\n Agility: " + attributes[1].AttributeLevel +
-         "\n Strength: " + attributes[2].AttributeLevel +
-         "\n Heading " + attributes[3].AttributeLevel +
-         "\n Stamina: " + attributes[4].AttributeLevel;
+            levels1Display.text =
+             "\n Pace: " + attributes[0].AttributeLevel +
+             "\n Agility: " + attributes[1].AttributeLevel +
+             "\n Strength: " + attributes[2].AttributeLevel +
+             "\n Heading " + attributes[3].AttributeLevel +
+             "\n Stamina: " + attributes[4].AttributeLevel;
 
-        levels2Display.text =
-         "\n Ball Control: " + attributes[5].AttributeLevel +
-         "\n Dribbling: " + attributes[6].AttributeLevel +
-         "\n Crossing: " + attributes[7].AttributeLevel +
-         "\n Passing " + attributes[8].AttributeLevel +
-         "\n Shooting: " + attributes[9].AttributeLevel;
+            levels2Display.text =
+             "\n Ball Control: " + attributes[5].AttributeLevel +
+             "\n Dribbling: " + attributes[6].AttributeLevel +
+             "\n Crossing: " + attributes[7].AttributeLevel +
+             "\n Passing " + attributes[8].AttributeLevel +
+             "\n Shooting: " + attributes[9].AttributeLevel;
 
-        levels3Display.text =
-         "\n Aggression: " + attributes[10].AttributeLevel +
-         "\n Interceptions: " + attributes[11].AttributeLevel +
-         "\n Stand Tackle: " + attributes[12].AttributeLevel +
-         "\n Sliding " + attributes[13].AttributeLevel;
+            levels3Display.text =
+             "\n Aggression: " + attributes[10].AttributeLevel +
+             "\n Interceptions: " + attributes[11].AttributeLevel +
+             "\n Stand Tackle: " + attributes[12].AttributeLevel +
+             "\n Sliding " + attributes[13].AttributeLevel;
 
-        levels4Display.text =
-         "\n GK Diving: " + attributes[14].AttributeLevel +
-         "\n GK Reflexes: " + attributes[15].AttributeLevel +
-         "\n GK Positioning: " + attributes[16].AttributeLevel +
-         "\n GK Kicking " + attributes[17].AttributeLevel;
+            levels4Display.text =
+             "\n GK Diving: " + attributes[14].AttributeLevel +
+             "\n GK Reflexes: " + attributes[15].AttributeLevel +
+             "\n GK Positioning: " + attributes[16].AttributeLevel +
+             "\n GK Kicking " + attributes[17].AttributeLevel;
 
-        if (levelUpBool)
-            panel.SetActive(true);
-        else
-            panel.SetActive(false);
+            if (levelUpBool)
+                panel.SetActive(true);
+            else
+                panel.SetActive(false);
 
-        for (int i = 0; i < attributes.Length; i++)
+            for (int i = 0; i < attributes.Length; i++)
+            {
+                if (attributes[i].levelUp())
+                    levelUpScreen(attributes[i].AttributeLevel, attributes[i].AttributeName);
+            }
+
+            panelText.text = levelUpMessage;
+    }
+
+    public void loadPlayer()
+    {
+        player.Load();
+    }
+
+    public void savePlayer()
+    {
+        player.Save();
+    }
+
+    public void saveAttributes()
+    {
+        SaveLoadManager.SaveAttributes(attributes);
+    }
+
+    public bool isNotFromMenu()
+    {
+        return mainMenu;
+    }
+
+    public void loadAttributes()
+    {
+        AttributeData loadedStats = SaveLoadManager.LoadAttributes();
+        
+        for(int i = 0; i < loadedStats.names.Length; i++)
         {
-            if (attributes[i].levelUp())
-                levelUpScreen(attributes[i].AttributeLevel, attributes[i].AttributeName);
+            attributes[i].AttributeName = loadedStats.names[i];
+            attributes[i].AttributeLevel = loadedStats.levels[i];
+            attributes[i].AttributeExp = loadedStats.exp[i];
         }
-
-        panelText.text = levelUpMessage;
     }
 
     public void giveExperience(string eventName)
@@ -136,17 +169,17 @@ public class PlayerManager : MonoBehaviour {
 
     public int getEnergy()
     {
-        return character.Energy;
+        return player.Energy;
     }
 
     public int getTeamID()
     {
-        return character.TeamID;
+        return player.TeamID;
     }
 
     public int getLeagueID()
     {
-        return character.LeagueID;
+        return player.LeagueID;
     }
 
     public string getTeamName()
@@ -156,33 +189,38 @@ public class PlayerManager : MonoBehaviour {
 
     public int getYear()
     {
-        return character.Year;
+        return player.Year;
     }
 
     public void setLeagueID(int leagueID)
     {
-        character.LeagueID = leagueID;
+        player.LeagueID = leagueID;
     }
 
     public int getWeek()
     {
-        return character.Week;
+        return player.Week;
+    }
+
+    public int getSeason()
+    {
+        return player.Year;
     }
 
     public void setWeek(int week)
     {
-        character.Week = week;
+        player.Week = week;
     }
 
     public void setYear(int year)
     {
-        character.Year = year;
+        player.Year = year;
     }
 
 
     public void setEnergy(int energy)
     {
-        character.Energy = energy;
+        player.Energy = energy;
     }
 
     public void levelUpScreen(int level, string skill)
