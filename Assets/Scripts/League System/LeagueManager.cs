@@ -7,18 +7,28 @@ public class LeagueManager : MonoBehaviour {
 
     public List<GameResults> results = new List<GameResults>();
 
+    [Header("Manager scripts")]
     public PlayerManager playerManager;
     public ScoreManager scoreManager;
 
+    [Space(10)]
+
+    [Header("Texts")]
     public Text tableDisplay;
+    public Text teamInfo_1, teamInfo_2;
+
+    [Space(10)]
+
+    [Header("Strings")]
     public string tableText;
+    
 
     public League[] leagues = {
-        new League(1, "National League", 1),
-        new League(2, "League Two", 1),
-        new League(3, "League One", 1),
-        new League(4, "Championship", 1),
-        new League(5, "Premier League", 1)
+        new League(1, "Engelish 5th Division", 1), //National League
+        new League(2, "Engelish 4th Division", 1), //League Two
+        new League(3, "Engelish 3rd Division", 1),  //League One
+        new League(4, "Engelish 2nd Division", 1), //Championship
+        new League(5, "English League", 1) //Premier League
         };
 
     public Club[] clubs =
@@ -47,7 +57,7 @@ public class LeagueManager : MonoBehaviour {
             new Club(21, "York City", 1, 11, 12, 11),
             new Club(22, "Braintree Town", 1, 11, 11, 11),
             new Club(23, "Southport", 1, 10, 11, 10),
-            new Club(24, "North Ferriby United", 1, 8, 8, 10),
+            new Club(24, "HFC Haarlem", 1, 8, 8, 10), //North Ferriby United
 
             //League Two
             new Club(25, "Plymouth Argyle", 2, 40, 40, 40),
@@ -77,7 +87,7 @@ public class LeagueManager : MonoBehaviour {
 
             //League one
             new Club(49, "Sheffield United", 3, 60, 60, 60),
-            new Club(50, "Bolton Wanderers", 3, 59, 59, 60),
+            new Club(50, "Middlebrook", 3, 59, 59, 60), //Bolton Wanderers
             new Club(51, "Scunthorpe United", 3, 58, 59, 58),
             new Club(52, "Fleetwood Town", 3, 58, 57, 58),
             new Club(53, "Bradford City", 3, 55, 57, 56),
@@ -102,52 +112,52 @@ public class LeagueManager : MonoBehaviour {
             new Club(72, "Chesterfield", 3, 40, 40, 40),
 
             //Championship
-            new Club(73, "Brighton & Hove Albion", 4, 80, 80, 80),
-            new Club(74, "Newcastle United", 4, 80, 80, 80),
-            new Club(75, "Reading", 4, 79, 78, 79),
-            new Club(76, "Sheffield Wednesday", 4, 78, 79, 78),
-            new Club(77, "Huddersfield Town", 4, 77, 78, 78),
-            new Club(78, "Fulham", 4, 77, 78, 77),
-            new Club(79, "Leeds United", 4, 77, 77, 77),
-            new Club(80, "Norwich City", 4, 76, 75, 76),
-            new Club(81, "Derby County", 4, 75, 74, 75),
-            new Club(82, "Brentford", 4, 73, 74, 74),
-            new Club(83, "Preston North End", 4, 73, 72, 73),
-            new Club(84, "Aston Villa", 4, 72, 71, 70),
-            new Club(85, "Cardiff City", 4, 71, 70, 70),
-            new Club(86, "Barnsley", 4, 69, 70, 70),
-            new Club(87, "Wolverhampton Wanderers", 4, 68, 69, 68),
-            new Club(88, "Ipswich Town", 4, 67, 68, 67),
-            new Club(89, "Bristol City", 4, 66, 66, 68),
-            new Club(90, "Queens Park Rangers", 4, 64, 67, 68),
-            new Club(91, "Burton Albion", 4, 65, 65, 65),
-            new Club(92, "Birmingham City", 4, 65, 64, 64),
-            new Club(93, "Nottingham Forest", 4, 63, 63, 64),
-            new Club(94, "Blackburn Rovers", 4, 62, 63, 62),
-            new Club(95, "Wigan Athletic", 4, 61, 61, 60),
-            new Club(96, "Rotherham United", 4, 60, 60, 60),
+            new Club(73, "East Sussex", 4, 80, 80, 80), //Brighton & Hove Albion
+            new Club(74, "Tyneside", 4, 80, 80, 80), //Newcastle United
+            new Club(75, "Berkshire Blues", 4, 79, 78, 79), //Reading
+            new Club(76, "South Yorkshire Blues", 4, 78, 79, 78), //Sheffield Wednesday
+            new Club(77, "West Yorkshire Town", 4, 77, 78, 78), //Huddersfield Town
+            new Club(78, "West London White", 4, 77, 78, 77), //Fulham
+            new Club(79, "Yorkshire Whites", 4, 77, 77, 77), //Leeds United
+            new Club(80, "Northluck CIty", 4, 76, 75, 76), //Norwich City
+            new Club(81, "Derbyshire", 4, 75, 74, 75), //Derby Country
+            new Club(82, "Hounslow", 4, 73, 74, 74), //Brentford
+            new Club(83, "LN White", 4, 73, 72, 73), //Preston North End
+            new Club(84, "West Midlands Village", 4, 72, 71, 70), //Aston Villa
+            new Club(85, "South Wales", 4, 71, 70, 70), //Cardiff City
+            new Club(86, "SY Red", 4, 69, 70, 70), //Barnsley
+            new Club(87, "Wolves", 4, 68, 69, 68), //Wolverhampton Wanderers
+            new Club(88, "East Anglia Town", 4, 67, 68, 67), //Ipswich Town
+            new Club(89, "SW Red", 4, 66, 66, 68), //Bristol City
+            new Club(90, "North West London", 4, 64, 67, 68), //Queens Park Rangers
+            new Club(91, "ST Yellow", 4, 65, 65, 65), //Burton Albion
+            new Club(92, "West Midlands City", 4, 65, 64, 64), //Birmingham City
+            new Club(93, "Notts Reds", 4, 63, 63, 64), //Nottingham Forest
+            new Club(94, "Lancashire", 4, 62, 63, 62), //Blackburn Rovers
+            new Club(95, "Lancashire Athletic", 4, 61, 61, 60), //Wigan Athletic
+            new Club(96, "Yorkshire Reds", 4, 60, 60, 60), //Rotherham United
 
             //Premier Leauge
-            new Club(97, "Chelsea", 5, 100, 100, 100),
-            new Club(98, "Tottenham Hotspur", 5, 100, 98, 98),
-            new Club(99, "Liverpool", 5, 96, 98, 98),
-            new Club(100, "Manchester City", 5, 96, 97, 100),
-            new Club(101, "Manchester United", 5, 96, 97, 100),
-            new Club(102, "Arsenal", 5, 96, 96, 96),
-            new Club(103, "Everton", 5, 94, 93, 92),
-            new Club(104, "West Bromwich Albion", 5, 92, 92, 93),
-            new Club(105, "Southampton", 5, 91, 92, 92),
-            new Club(106, "Bournemouth", 5, 90, 91, 91),
-            new Club(107, "Leicester City", 5, 90, 90, 90),
-            new Club(108, "Stoke City", 5, 88, 89, 90),
-            new Club(109, "Watford", 5, 88, 88, 87),
-            new Club(110, "Burnley", 5, 85, 88, 86),
-            new Club(111, "West Ham United", 5, 86, 86, 86),
-            new Club(112, "Crystal Palace", 5, 85, 85, 85),
-            new Club(113, "Hull City", 5, 84, 83, 84),
-            new Club(114, "Swansea City", 5, 82, 83, 84),
-            new Club(115, "Middlesbrough", 5, 81, 82, 83),
-            new Club(116, "Sunderland", 5, 80, 80, 80)
+            new Club(97, "London FC", 5, 100, 100, 100), //Chelsea
+            new Club(98, "North East London", 5, 100, 98, 98), //Tottenham Hotspur
+            new Club(99, "Merseyside Red", 5, 96, 98, 98), //Liverpool
+            new Club(100, "Man Blue", 5, 96, 97, 100), //Manchester City
+            new Club(101, "Man Red", 5, 96, 97, 100), //Manchester United
+            new Club(102, "North London", 5, 96, 96, 96), //Arsenal
+            new Club(103, "Merseyside Blue", 5, 94, 93, 92), //Everton
+            new Club(104, "West Midlands Stripes", 5, 92, 92, 93), //West Bromwich Albion
+            new Club(105, "Hampshire Red", 5, 91, 92, 92), //Southampton
+            new Club(106, "East Dorsetshire", 5, 90, 91, 91), //Bournemouth
+            new Club(107, "East Midlands", 5, 90, 90, 90), //Leicester City
+            new Club(108, "The Potteries", 5, 88, 89, 90), //Stoke City
+            new Club(109, "Hertfordshire", 5, 88, 88, 87), //Watford
+            new Club(110, "Lancashire Claret", 5, 85, 88, 86), //Burnley
+            new Club(111, "East London", 5, 86, 86, 86), //West Ham United
+            new Club(112, "South Norwood", 5, 85, 85, 85), //Crystal Palace
+            new Club(113, "Yorkshire Orange", 5, 84, 83, 84), //Hull City
+            new Club(114, "Swearcle", 5, 82, 83, 84), //Swansea City
+            new Club(115, "Teeside", 5, 81, 82, 83), //Middlesbrough
+            new Club(116, "Wearside", 5, 80, 80, 80) //Sunderland
         };
 
     public string getTeamName(int teamID)
@@ -174,6 +184,38 @@ public class LeagueManager : MonoBehaviour {
         }
 
         return 0;
+    }
+
+    public int getTeamRating(int rating, int teamID)
+    {
+        for (int i = 0; i < clubs.Length; i++)
+        {
+            if (clubs[i].TeamID == teamID)
+            {
+                if(rating == 1)
+                    return clubs[i].AttRating;
+                if (rating == 2)
+                    return clubs[i].MidRating;
+                if (rating == 3)
+                    return clubs[i].DefRating;
+            }
+        }
+
+        return 0;
+    }
+
+
+    public string getLeagueName(int leagueID)
+    {
+        for (int i = 0; i < leagues.Length; i++)
+        {
+            if (leagues[i].LeagueID == leagueID)
+            {
+                return leagues[i].LeagueName;
+            }
+        }
+
+        return null;
     }
 
     public void setLeagueID(string teamName, int leagueID)
@@ -363,6 +405,27 @@ public class LeagueManager : MonoBehaviour {
         for (int i = 0; i < loadedStats.teamA.Length; i++)
         {
             addResult(loadedStats.teamA[i], loadedStats.teamB[i], loadedStats.homeGoals[i], loadedStats.awayGoals[i], loadedStats.season[i]);
+        }
+    }
+
+    public void displayTeamMenu(int menuID)
+    {
+        switch (menuID)
+        {
+            //General information
+            case 1:
+                teamInfo_1.text = "Team Name: " + getTeamName(playerManager.getTeamID()) + "\nLeague Name: " + getLeagueName(getLeagueID(playerManager.getTeamID()));
+                teamInfo_2.text = "Attack Rating of: " + getTeamRating(1, playerManager.getTeamID()) + "\nMidfield Rating of: " + getTeamRating(2, playerManager.getTeamID()) + "\nDefensive Rating of: " + +getTeamRating(3, playerManager.getTeamID());
+                break;
+            //Latest Results
+            case 2:
+                break;       
+            //League History
+            case 3:
+                break;
+            //Team Trophies
+            case 4:
+                break;
         }
     }
 }

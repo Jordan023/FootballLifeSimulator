@@ -6,13 +6,21 @@ using UnityEngine.UI;
 
 public class MatchManager : MonoBehaviour
 {
+    [Header("Manager scripts")]
     public PlayerManager playerManager;
     public LeagueManager leagueManager;
-    public GameObject EntryPrefab;
 
+    [Space(10)]
+
+    [Header("Score Display")]
     public Text team1;
     public Text team2;
     public Text score;
+
+    [Space(10)]
+
+    [Header("Prefab")]
+    public GameObject EntryPrefab;
 
     private const int BYE = -1;
 
@@ -81,6 +89,29 @@ public class MatchManager : MonoBehaviour
         }
     }
 
+    public void getResults(int teamID)
+    {
+        foreach (GameResults result in leagueManager.results)
+        {
+            if (result.Season == playerManager.getSeason())
+            {
+
+                if (result.TeamA == teamID || result.TeamB == teamID)
+                {
+                    Debug.Log(result.Season);
+
+                    GameObject go = (GameObject)Instantiate(EntryPrefab);
+                    go.transform.SetParent(this.transform, false);
+
+                    go.transform.Find("Team 1").GetComponent<Text>().text = leagueManager.getTeamName(result.TeamA) + "  ";
+                    go.transform.Find("Team 1 score").GetComponent<Text>().text = result.HomeGoals.ToString();
+                    go.transform.Find("Team 2").GetComponent<Text>().text = leagueManager.getTeamName(result.TeamB);
+                    go.transform.Find("Team 2 score").GetComponent<Text>().text = result.AwayGoals.ToString();
+                }
+            }
+        }
+    }
+
     public void destroyClones()
     {
         for (int i = transform.childCount - 1; i >= 0; i--)
@@ -121,8 +152,6 @@ public class MatchManager : MonoBehaviour
 
         int homeGoals = getGoals(teamAOverall, teamBOverall, true);
         int awayGoals = getGoals(teamBOverall, teamAOverall, false);
-
-//     Debug.Log(leagueManager.getTeamName(teamA) + " " + homeGoals + " - " + awayGoals + " " + leagueManager.getTeamName(teamB));
 
         if (leagueID == playerManager.getLeagueID())
         {

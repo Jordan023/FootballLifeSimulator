@@ -4,13 +4,25 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class PlayerScoreList : MonoBehaviour {
-    public GameObject playerScoreEntryPrefab;
-    public Font boldFont;
-    public bool review;
 
+    [Header("Manager scripts")]
     public PlayerManager playerManager;
     public ScoreManager scoreManager;
 
+    [Space(10)]
+
+    [Header("Font")]
+    public GameObject playerScoreEntryPrefab;
+
+    [Space(10)]
+
+    [Header("Prefab")]
+    public Font boldFont;
+
+    [Space(10)]
+
+    [Header("Booleans")]
+    public bool review;
     int lastChangeCounter;
 
     private void Start()
@@ -38,7 +50,7 @@ public class PlayerScoreList : MonoBehaviour {
 
         removeChilds();
 
-        if (review)
+        if (!review)
         {
             string[] names = scoreManager.getTeamNames("points", "goalsDifference", playerManager.getLeagueID());
 
@@ -89,6 +101,8 @@ public class PlayerScoreList : MonoBehaviour {
     public void seasonReview(int leagueID)
     {
         removeChilds();
+
+        Debug.Log(leagueID);
 
         string[] namesReview = scoreManager.getTeamNames("points", "goalsDifference", leagueID);
 

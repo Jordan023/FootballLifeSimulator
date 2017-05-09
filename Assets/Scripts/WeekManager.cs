@@ -5,18 +5,26 @@ using UnityEngine.UI;
 
 public class WeekManager : MonoBehaviour
 {
+    [Header("Manager Scripts")]
     public PlayerManager playerManager;
     public ScoreManager scoreManager;
     public MatchManager matchManager;
     public LeagueManager leagueManager;
-    public PlayerScoreList list;
-
     public EventManager button_1, button_2, button_3, button_4, button_5;
 
-    public GameObject panelRight, panelRight2;
+    [Space(10)]
+
+    [Header("Player Score Lists")]
+    public PlayerScoreList list;
+    public PlayerScoreList list2;
+
+    [Space(10)]
+
+    [Header("GameObjects")]
+    public GameObject panelRight;
+    public GameObject panelRight2;
     public GameObject panelLeft;
     public GameObject panelBottom;
-
     public GameObject nextWeekButton_1, nextWeekButton_2;
     public GameObject weekPanel;
     public GameObject reviewPanel;
@@ -86,6 +94,11 @@ public class WeekManager : MonoBehaviour
 
         reviewPanel.SetActive(true);
         list.seasonReview(leagueID);
+    }
+
+    public void leagueStandings(int leagueID)
+    {
+        list2.seasonReview(leagueID);
     }
 
     public void goToTheNextWeek()

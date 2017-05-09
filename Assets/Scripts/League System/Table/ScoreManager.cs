@@ -11,8 +11,14 @@ public class ScoreManager : MonoBehaviour {
     Dictionary<string, Dictionary<string, int>> league_3;
     Dictionary<string, Dictionary<string, int>> league_4;
     Dictionary<string, Dictionary<string, int>> league_5;
+
+    [Header("Manager scripts")]
     public PlayerManager playerManager;
     public LeagueManager leagueManager;
+
+    [Space(10)]
+
+    [Header("Booleans")]
     public bool nextWeek = true;
 
     int changeCounter = 0;

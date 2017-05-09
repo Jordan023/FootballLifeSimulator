@@ -31,10 +31,14 @@ public class PlayerManager : MonoBehaviour {
       new Attribute("GK Kicking", 1, 0)
      };
 
+    [Header("Manager Scripts")]
     public LeagueManager leagueManager;
     public MatchManager matchManager;
     public ScoreManager scoreManager;
 
+    [Space(10)]
+
+    [Header("Player Display - In-Game")]
     public Text levels1Display;
     public Text levels2Display;
     public Text levels3Display;
@@ -45,11 +49,29 @@ public class PlayerManager : MonoBehaviour {
     public Text energyDisplay;
     public Text weekDisplay;
 
-    public string levelUpMessage;
+    [Space(10)]
+
+    [Header("Player Display - Player Menu")]
+    public Text playerInfo_1;
+    public Text playerInfo_2;
+    public Text attInfo_1, attInfo_2, attInfo_3, attInfo_4;
+
+    [Space(10)]
+
+    [Header("Level-Up Panel")]
     public GameObject panel;
     public Text panelText;
+
+    [Space(10)]
+
+    [Header("Booleans")]
     public bool levelUpBool = false;
     public bool mainMenu = false;
+
+    [Space(10)]
+
+    [Header("Strings")]
+    public string levelUpMessage;
 
     // Use this for initialization
     void Start () {
@@ -80,27 +102,27 @@ public class PlayerManager : MonoBehaviour {
              "\n Pace: " + attributes[0].AttributeLevel +
              "\n Agility: " + attributes[1].AttributeLevel +
              "\n Strength: " + attributes[2].AttributeLevel +
-             "\n Heading " + attributes[3].AttributeLevel +
+             "\n Heading: " + attributes[3].AttributeLevel +
              "\n Stamina: " + attributes[4].AttributeLevel;
 
             levels2Display.text =
              "\n Ball Control: " + attributes[5].AttributeLevel +
              "\n Dribbling: " + attributes[6].AttributeLevel +
              "\n Crossing: " + attributes[7].AttributeLevel +
-             "\n Passing " + attributes[8].AttributeLevel +
+             "\n Passing: " + attributes[8].AttributeLevel +
              "\n Shooting: " + attributes[9].AttributeLevel;
 
             levels3Display.text =
              "\n Aggression: " + attributes[10].AttributeLevel +
              "\n Interceptions: " + attributes[11].AttributeLevel +
              "\n Stand Tackle: " + attributes[12].AttributeLevel +
-             "\n Sliding " + attributes[13].AttributeLevel;
+             "\n Sliding: " + attributes[13].AttributeLevel;
 
             levels4Display.text =
              "\n GK Diving: " + attributes[14].AttributeLevel +
              "\n GK Reflexes: " + attributes[15].AttributeLevel +
              "\n GK Positioning: " + attributes[16].AttributeLevel +
-             "\n GK Kicking " + attributes[17].AttributeLevel;
+             "\n GK Kicking: " + attributes[17].AttributeLevel;
 
             if (levelUpBool)
                 panel.SetActive(true);
@@ -136,6 +158,7 @@ public class PlayerManager : MonoBehaviour {
         return mainMenu;
     }
 
+
     public void loadAttributes()
     {
         AttributeData loadedStats = SaveLoadManager.LoadAttributes();
@@ -165,6 +188,49 @@ public class PlayerManager : MonoBehaviour {
                 return attributes[i].AttributeExp;
         }
         return 0;
+    }
+
+    public void displayPlayerMenu(int menuID)
+    {
+        switch (menuID)
+        {
+            //General information
+            case 1:
+                playerInfo_1.text = "Name: " + player.CharacterName + "\nAge: " + player.Age + " years old";
+                playerInfo_2.text = "Current Team: " + leagueManager.getTeamName(player.TeamID);
+                break;
+            //Player Attributes
+            case 2:
+                attInfo_1.text =
+                 "Pace: " + attributes[0].AttributeLevel +
+                 "\nAgility: " + attributes[1].AttributeLevel +
+                 "\nStrength: " + attributes[2].AttributeLevel +
+                 "\nHeading: " + attributes[3].AttributeLevel +
+                 "\nStamina: " + attributes[4].AttributeLevel;
+
+                attInfo_2.text =
+                 "Ball Control: " + attributes[5].AttributeLevel +
+                 "\nDribbling: " + attributes[6].AttributeLevel +
+                 "\nCrossing: " + attributes[7].AttributeLevel +
+                 "\nPassing: " + attributes[8].AttributeLevel +
+                 "\nShooting: " + attributes[9].AttributeLevel;
+
+                attInfo_3.text =
+                 "Aggression: " + attributes[10].AttributeLevel +
+                 "\nInterceptions: " + attributes[11].AttributeLevel +
+                 "\nStand Tackle: " + attributes[12].AttributeLevel +
+                 "\nSliding: " + attributes[13].AttributeLevel;
+
+                attInfo_4.text =
+                 "GK Diving: " + attributes[14].AttributeLevel +
+                 "\nGK Reflexes: " + attributes[15].AttributeLevel +
+                 "\nGK Positioning: " + attributes[16].AttributeLevel +
+                 "\nGK Kicking: " + attributes[17].AttributeLevel;
+                break;
+            case 3:
+                break;
+
+        }
     }
 
     public int getEnergy()

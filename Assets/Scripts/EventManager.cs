@@ -5,17 +5,38 @@ using UnityEngine.UI;
 
 public class EventManager : MonoBehaviour
 {
+
+    [Header("Manager Scripts")]
+    public PlayerManager playerManager;
+
+    [Space(10)]
+
+    [Header("Texts")]
     public Text eventInfo;
     public Text experienceInfo;
-    public int eventID;
+
+    [Space(10)]
+
+    [Header("Strings")]
     public string eventName;
     public string eventAction;
+
+    [Space(10)]
+
+    [Header("Ints")]
+    public int eventID;
+
+    [Space(10)]
+
+    [Header("Booleans")]
     public bool isNameFound = false;
     public bool experienceBar = false;
 
+    [Space(10)]
+
+    [Header("GameObjects")]
     public GameObject panel;
     public GameObject button;
-    public PlayerManager playerManager;
 
     private void Update()
     {
